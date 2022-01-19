@@ -10,10 +10,14 @@ const homeBtn = document.querySelector('#home-btn');
 const footerNav = document.querySelector('#footer-navigation')
 
 // * GLOBAL VARIABLES
-
+let encounterPageIndex = 0;
+let battlePageIndex = 0;
 
 // * FUNCTIONS
 renderCreateEncounterPage = () => {
+
+    // ! switch statement to define what to load on the page based on index
+
     mainEl.textContent = '';
     headerTitle.textContent = 'CREATE NEW ENCOUNTER'
 
@@ -86,6 +90,7 @@ renderCreateEncounterPage = () => {
     nextBtn.classList.add('btn-secondary');
     nextBtn.classList.add('col-5');
     nextBtn.addEventListener('click', createEncounterPageTwo)
+    // ! increase index count
 
     footerNav.appendChild(nextBtn);
 }
