@@ -115,6 +115,7 @@ createEncounterPageTwo = () => {
     mainEl.appendChild(contentDiv);
 }
 
+console.log('test');
 
 // * EVENT LISTENERS
 createEncounterBtn.addEventListener('click', renderCreateEncounterPage);
