@@ -10,13 +10,22 @@ const homeBtn = document.querySelector('#home-btn');
 const footerNav = document.querySelector('#footer-navigation')
 
 // * GLOBAL VARIABLES
-let encounterPageIndex = 0;
-let battlePageIndex = 0;
+let pageIndex = 0;
 
 // * FUNCTIONS
-renderCreateEncounterPage = () => {
+renderCreateEncounter = () => {
 
     // ! switch statement to define what to load on the page based on index
+    switch (pageIndex) {
+        case 0:
+            console.log('page 0');
+            break;
+        case 1:
+            console.log(`page 1`);
+            break;
+        default:
+            console.log('error');
+    }
 
     mainEl.textContent = '';
     headerTitle.textContent = 'CREATE NEW ENCOUNTER'
@@ -81,43 +90,59 @@ renderCreateEncounterPage = () => {
 
     //? footer manipulation
 
-    homeBtn.classList.remove('col-12');
-    homeBtn.classList.add('col-5');
+    footerNav.textContent = '';
+    let prevBtn = document.createElement('button');
+    prevBtn.textContent = '<< prev';
+    prevBtn.classList.add('btn');
+    prevBtn.classList.add('btn-secondary');
+    prevBtn.classList.add('col-5');
+    prevBtn.addEventListener('click', function() {
+        if (pageIndex === 0) {
+            location.reload();
+        } else {
+            pageIndex--;
+            renderCreateEncounter();
+        }
+    })
+    footerNav.appendChild(prevBtn);
 
     let nextBtn = document.createElement('button');
-    nextBtn.textContent = "next >>";
+    nextBtn.textContent = 'next >>';
     nextBtn.classList.add('btn');
     nextBtn.classList.add('btn-secondary');
     nextBtn.classList.add('col-5');
-    nextBtn.addEventListener('click', createEncounterPageTwo)
+    nextBtn.addEventListener('click', function() {
+        pageIndex++;
+        renderCreateEncounter();
+    })
     // ! increase index count
 
     footerNav.appendChild(nextBtn);
 }
 
-createEncounterPageTwo = () => {
-    mainEl.textContent = '';
+// createEncounterPageTwo = () => {
+//     mainEl.textContent = '';
 
-    let contentDiv = document.createElement('div');
+//     let contentDiv = document.createElement('div');
 
-    let text = document.createElement('p');
-    text.textContent = 'Select your NPC\'s:'
-    contentDiv.appendChild(text);
+//     let text = document.createElement('p');
+//     text.textContent = 'Select your NPC\'s:'
+//     contentDiv.appendChild(text);
 
-    let addNpcBtn = document.createElement('button');
-    addNpcBtn.textContent = '+ add new NPC';
-    addNpcBtn.classList.add('btn');
-    addNpcBtn.classList.add('btn-primary');
-    addNpcBtn.classList.add('btn-lg');
-    addNpcBtn.classList.add('col-12');
-    contentDiv.appendChild(addNpcBtn);
+//     let addNpcBtn = document.createElement('button');
+//     addNpcBtn.textContent = '+ add new NPC';
+//     addNpcBtn.classList.add('btn');
+//     addNpcBtn.classList.add('btn-primary');
+//     addNpcBtn.classList.add('btn-lg');
+//     addNpcBtn.classList.add('col-12');
+//     contentDiv.appendChild(addNpcBtn);
 
-    mainEl.appendChild(contentDiv);
-}
+//     mainEl.appendChild(contentDiv);
+// }
 
 console.log('test');
 
 // * EVENT LISTENERS
-createEncounterBtn.addEventListener('click', renderCreateEncounterPage);
+createEncounterBtn.addEventListener('click', renderCreateEncounter);
 
 homeBtn.addEventListener('click', function() {location.reload()});
