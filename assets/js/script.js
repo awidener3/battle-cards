@@ -18,6 +18,12 @@ let pageIndex = 0;
 // renders the create encounter section of the application
 renderCreateEncounter = () => {
     mainEl.textContent = '';
+
+    if (pageIndex > 2) {
+        printSummary();
+        return;
+    }
+
     headerTitle.textContent = 'CREATE NEW ENCOUNTER'
     let contentDiv = document.createElement('div');
 
@@ -25,77 +31,39 @@ renderCreateEncounter = () => {
 
     let addBtn = document.createElement('button');
     addBtn.classList.add('btn', 'btn-primary', 'btn-lg', 'col-12');
-
-    let selectionDiv = document.createElement('div');
-    selectionDiv.classList.add('container', 'mt-4')
-
-    let selectionRow = document.createElement('div');
-    selectionRow.classList.add('row', 'justify-content-center');
-
-    let selectionInfo = document.createElement('div');
-    selectionInfo.classList.add('col-2', 'border', 'bg-secondary');
-
-    let selectionName = document.createElement('div');
-    selectionName.classList.add('col-7', 'border-top', 'border-bottom');
-
-    let selectionInit = document.createElement('div');
-    selectionInit.classList.add('col-2', 'border', 'bg-secondary');
-    selectionInit.textContent = 'Init ??';
+    
+    contentDiv.append(text, addBtn);
+    mainEl.appendChild(contentDiv);
 
     // uses current pageIndex to dynamically change what is displayed
     switch (pageIndex) {
         case 0: // * pc's
             text.textContent = 'Select your players:';
             addBtn.textContent = '+ add new PC';
-            selectionInfo.textContent = 'Lvl ??';
-            selectionName.textContent = 'saved PC 1';
 
-            selectionName.addEventListener('click', function() {
-                if (this.classList.contains('bg-success')) {
-                    this.classList.remove('bg-success');
-                } else {
-                    this.classList.add('bg-success');
-                }
-            })
+            createRow('Lvl ??', 'Saved PC 1', 'Init ??');
 
             break;
 
         case 1: // * npc's
             text.textContent = 'Select your NPC\'s:';
             addBtn.textContent = '+ add new NPC';
-            selectionInfo.textContent = 'CR ??';
-            selectionName.textContent = 'saved NPC 1';
 
-            selectionName.addEventListener('click', function() {
-                if (this.classList.contains('bg-success')) {
-                    this.classList.remove('bg-success');
-                } else {
-                    this.classList.add('bg-success');
-                }
-            })
+            createRow('CR ??', 'Saved NPC 1', 'Init ??');
+
             break;
             
         case 2: // * monsters
             text.textContent = 'Select your monster\'s';
             addBtn.textContent = '+ add new monster';
-            selectionInfo.textContent = '# ##';
-            selectionName.textContent = 'MONSTER';
+
+            createRow('# ??', 'MONSTER 1', 'Init ??');
+
             break;
-        
-        case 3: // * summary
-            printSummary();
-            return; // leaves the function to print summary
 
         default:
             console.log('error');
     }
-
-    // append all info
-    contentDiv.append(text, addBtn);
-    mainEl.appendChild(contentDiv);
-    selectionRow.append(selectionInfo, selectionName, selectionInit);
-    selectionDiv.appendChild(selectionRow);
-    mainEl.appendChild(selectionDiv);
 
     // navigation buttons
     footerNav.textContent = '';
@@ -137,16 +105,69 @@ renderCreateEncounter = () => {
     footerNav.append(prevBtn, nextBtn);
 }
 
+createRow = (info, title, initiative) => {
+    let selectionDiv = document.createElement('div');
+    selectionDiv.classList.add('container', 'mt-4')
+
+    let selectionRow = document.createElement('div');
+    selectionRow.classList.add('row', 'justify-content-center');
+
+    let selectionInfo = document.createElement('div');
+    selectionInfo.textContent = info;
+    selectionInfo.classList.add('col-2', 'border', 'bg-secondary');
+
+    let selectionName = document.createElement('div');
+    selectionName.classList.add('col-7', 'border-top', 'border-bottom');
+    selectionName.textContent = title;
+
+    selectionName.addEventListener('click', function() {
+        if (this.classList.contains('bg-success')) {
+            this.classList.remove('bg-success');
+        } else {
+            this.classList.add('bg-success');
+        }
+    })
+
+    let selectionInit = document.createElement('div');
+    selectionInit.classList.add('col-2', 'border', 'bg-secondary');
+    selectionInit.textContent = initiative;
+
+    selectionRow.append(selectionInfo, selectionName, selectionInit);
+    selectionDiv.appendChild(selectionRow);
+
+    mainEl.appendChild(selectionDiv);
+}
+
 printSummary = () => {
     headerTitle.textContent = 'ENCOUNTER SUMMARY';
 
+    // main content
+    let summaryContent = document.createElement('div');
+
+    let pcDiv = document.createElement('div');
+    let pcHeader = document.createElement('h4');
+    pcHeader.textContent = 'PC\'s:'
+    pcDiv.append(pcHeader);
+    
+    let npcDiv = document.createElement('div');
+    let npcHeader = document.createElement('h4');
+    npcHeader.textContent = 'NPC\'s:'
+    npcDiv.append(npcHeader);
+    
+    let monDiv = document.createElement('div');
+    let monHeader = document.createElement('h4');
+    monHeader.textContent = 'monsters\'s:'
+    monDiv.append(monHeader);
+
+    summaryContent.append(pcDiv, npcDiv, monDiv);
+    mainEl.append(summaryContent);
+
+
+    // bottom buttons
+
     let runBtn = document.createElement('button');
     runBtn.textContent = 'run battle >>';
-    runBtn.classList.add('btn');
-    runBtn.classList.add('btn-success');
-    runBtn.classList.add('btn-lg');
-    runBtn.classList.add('mb-1');
-    runBtn.classList.add('col-12');
+    runBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-12');
     runBtn.addEventListener('click', function() {
         // start encounter
     })
@@ -154,9 +175,7 @@ printSummary = () => {
     footerNav.textContent = '';
     let prevBtn = document.createElement('button');
     prevBtn.textContent = '<< prev';
-    prevBtn.classList.add('btn');
-    prevBtn.classList.add('btn-secondary');
-    prevBtn.classList.add('col-5');
+    prevBtn.classList.add('btn', 'btn-secondary', 'col-5');
     prevBtn.addEventListener('click', function() {
         if (pageIndex === 0) {
             location.reload();
@@ -172,6 +191,8 @@ printSummary = () => {
     clearBtn.classList.add('btn-secondary');
     clearBtn.classList.add('col-5');
     clearBtn.addEventListener('click', function() {
+        pageIndex = 0;
+        renderCreateEncounter();
         // clear saved and go back to beginning
     })
 
