@@ -41,6 +41,7 @@ renderCreateEncounter = () => {
             text.textContent = 'Select your players:';
             addBtn.textContent = '+ add new PC';
 
+            // rows will dynamically update depending on saved/created/searched pc's/npc's/monsters
             createRow('Lvl ??', 'Saved PC 1', 'Init ??');
 
             break;
@@ -164,7 +165,6 @@ printSummary = () => {
 
 
     // bottom buttons
-
     let runBtn = document.createElement('button');
     runBtn.textContent = 'run battle >>';
     runBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-12');
@@ -187,13 +187,10 @@ printSummary = () => {
 
     let clearBtn = document.createElement('button');
     clearBtn.textContent = 'clear';
-    clearBtn.classList.add('btn');
-    clearBtn.classList.add('btn-secondary');
-    clearBtn.classList.add('col-5');
+    clearBtn.classList.add('btn', 'btn-secondary', 'col-5');
     clearBtn.addEventListener('click', function() {
         pageIndex = 0;
         renderCreateEncounter();
-        // clear saved and go back to beginning
     })
 
     let difficultyMeter = document.createElement('div');
@@ -206,10 +203,7 @@ printSummary = () => {
 
     difficultyMeter.append(meterText);
     
-    footerNav.appendChild(runBtn);
-    footerNav.append(difficultyMeter);
-    footerNav.appendChild(prevBtn);
-    footerNav.appendChild(clearBtn);
+    footerNav.append(runBtn, difficultyMeter, prevBtn, clearBtn);
 }
 
 // * EVENT LISTENERS
