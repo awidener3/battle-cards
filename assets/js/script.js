@@ -10,30 +10,34 @@ const homeBtn = document.querySelector('#home-btn');
 const footerNav = document.querySelector('#footer-navigation')
 
 // * GLOBAL VARIABLES
+// controls current page and what is displayed
 let pageIndex = 0;
 
 // * FUNCTIONS
 renderCreateEncounter = () => {
+    mainEl.textContent = '';
+    headerTitle.textContent = 'CREATE NEW ENCOUNTER'
+    let contentDiv = document.createElement('div');
+    let text = document.createElement('p');
 
-    // ! switch statement to define what to load on the page based on index
+    // uses current pageIndex to dynamically change what is displayed
     switch (pageIndex) {
         case 0:
             console.log('page 0');
+            text.textContent = 'Select your players:';
             break;
         case 1:
             console.log(`page 1`);
+            text.textContent = 'Select your NPC\'s:';
             break;
+        case 2:
+            text.textContent = 'Select your monster\'s';
+            break;
+            
         default:
             console.log('error');
     }
 
-    mainEl.textContent = '';
-    headerTitle.textContent = 'CREATE NEW ENCOUNTER'
-
-    let contentDiv = document.createElement('div');
-
-    let text = document.createElement('p');
-    text.textContent = 'Select your players:'
     contentDiv.appendChild(text);
 
     let addPlayerBtn = document.createElement('button');
@@ -139,8 +143,6 @@ renderCreateEncounter = () => {
 
 //     mainEl.appendChild(contentDiv);
 // }
-
-console.log('test');
 
 // * EVENT LISTENERS
 createEncounterBtn.addEventListener('click', renderCreateEncounter);
