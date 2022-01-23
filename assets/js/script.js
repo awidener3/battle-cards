@@ -12,8 +12,8 @@ const footerNav = document.querySelector('#footer-navigation')
 // * GLOBAL VARIABLES
 // controls current page and what is displayed
 let pageIndex = 0;
-
-let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
+// ? might not need this here?
+// let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
 
 // * CONSTRUCTORS
 
@@ -29,6 +29,7 @@ class Pc {
 
 // renders the create encounter section of the application
 renderCreateEncounter = () => {
+    let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
     mainEl.textContent = '';
 
     // pushes to summary page before adding any elements below
@@ -39,9 +40,7 @@ renderCreateEncounter = () => {
 
     headerTitle.textContent = 'CREATE NEW ENCOUNTER';
     let contentDiv = document.createElement('div');
-
     let text = document.createElement('p');
-
     let addBtn = document.createElement('button');
     addBtn.classList.add('btn', 'btn-primary', 'btn-lg', 'col-12');
     
@@ -57,7 +56,7 @@ renderCreateEncounter = () => {
     // uses current pageIndex to dynamically change what is displayed
     switch (pageIndex) {
         case 0: // * pc's
-            text.textContent = 'Select your players:';
+            text.textContent = 'Select your PC\'s:';
             addBtn.textContent = '+ add new PC';
             addBtn.addEventListener('click', createNewPc);
 
@@ -93,13 +92,16 @@ renderCreateEncounter = () => {
 
     for (let i = 0; i < closeBtns.length; i++) {
         closeBtns[i].addEventListener('click', function() {
-            // remove from page
-            this.parentElement.parentElement.remove();
-            // remove from local storage
-            let index = this.parentElement.parentElement.dataset.index;
-            let pcArray = JSON.parse(localStorage.getItem('playerCharacter'));
-            pcArray.splice(index, 1);
-            localStorage.setItem('playerCharacter', JSON.stringify(pcArray));
+
+            if (confirm('Are you sure you want to delete?')) {
+                // remove from page
+                this.parentElement.parentElement.remove();
+                // remove from local storage
+                let index = this.parentElement.parentElement.dataset.index;
+                let pcArray = JSON.parse(localStorage.getItem('playerCharacter'));
+                pcArray.splice(index, 1);
+                localStorage.setItem('playerCharacter', JSON.stringify(pcArray));
+            }
         })
     }
 
@@ -118,7 +120,6 @@ renderCreateEncounter = () => {
             renderCreateEncounter();
         }
     })
-
 
     // next page
     let nextBtn = document.createElement('button');
@@ -171,7 +172,6 @@ createRow = (info, title, secondary, initiative, index) => {
     <div class="col-2 border bg-secondary">
         <p>${initiative}</p>
     </div>
- 
     `;
 
     let selectionDiv = document.querySelector('#selection-div')
@@ -179,6 +179,12 @@ createRow = (info, title, secondary, initiative, index) => {
     selectionRow.classList.add('row', 'justify-content-center', 'my-3');
     selectionRow.dataset.index = index;
     selectionRow.innerHTML += row;
+
+    // TODO: collect info to add to encounter
+    selectionRow.addEventListener('click', function() {
+        console.log('click');
+        // will collect information from this row and add to encounter
+    })
 
     selectionDiv.append(selectionRow);
 
@@ -211,13 +217,32 @@ printSummary = () => {
 
 
     // bottom buttons
+    let saveBtn = document.createElement('button');
+    saveBtn.textContent = 'save encounter';
+    saveBtn.classList.add('btn', 'btn-secondary', 'btn-lg', 'mb-1', 'col-5');
+    saveBtn.addEventListener('click', function() {
+        // save
+    })
+
     let runBtn = document.createElement('button');
     runBtn.textContent = 'run battle >>';
-    runBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-12');
+    runBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-5');
     runBtn.addEventListener('click', function() {
         // start encounter
     })
 
+    // * difficulty meter
+    let difficultyMeter = document.createElement('div');
+    let meterText = document.createElement('p');
+    meterText.textContent = 'DIFFICULTY';
+
+    // color will change with function that calculates difficulty
+    difficultyMeter.classList.add('alert', 'alert-success', 'mt-2');
+    meterText.classList.add('text-center', 'm-0');
+
+    difficultyMeter.append(meterText);
+
+    // clear buttons
     footerNav.textContent = '';
     let prevBtn = document.createElement('button');
     prevBtn.textContent = '<< prev';
@@ -238,18 +263,8 @@ printSummary = () => {
         pageIndex = 0;
         renderCreateEncounter();
     })
-
-    let difficultyMeter = document.createElement('div');
-    let meterText = document.createElement('p');
-    meterText.textContent = 'DIFFICULTY';
-
-    // color will change with function that calculates difficulty
-    difficultyMeter.classList.add('alert', 'alert-success', 'mt-2');
-    meterText.classList.add('text-center', 'm-0');
-
-    difficultyMeter.append(meterText);
     
-    footerNav.append(runBtn, difficultyMeter, prevBtn, clearBtn);
+    footerNav.append(saveBtn, runBtn, difficultyMeter, prevBtn, clearBtn);
 }
 
 createNewPc = () => {
