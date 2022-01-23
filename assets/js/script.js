@@ -47,6 +47,12 @@ renderCreateEncounter = () => {
     contentDiv.append(text, addBtn);
     mainEl.appendChild(contentDiv);
 
+    let selectionDiv = document.createElement('div');
+    selectionDiv.classList.add('container', 'mt-4')
+    selectionDiv.setAttribute('id', 'selection-div');
+
+    mainEl.appendChild(selectionDiv)
+
     // uses current pageIndex to dynamically change what is displayed
     switch (pageIndex) {
         case 0: // * pc's
@@ -56,7 +62,7 @@ renderCreateEncounter = () => {
 
             // rows will dynamically update depending on saved/created/searched pc's/npc's/monsters
             for (let i = 0; i < storedPc.length; i++) {
-                createRow(storedPc[i].pcLevel, storedPc[i].pcName, `Init ??`);
+                createRow(storedPc[i].pcLevel, storedPc[i].pcName, storedPc[i].pcClass, `Init ??`);
             }
 
             break;
@@ -65,7 +71,7 @@ renderCreateEncounter = () => {
             text.textContent = 'Select your NPC\'s:';
             addBtn.textContent = '+ add new NPC';
 
-            createRow('CR ??', 'Saved NPC 1', 'Init ??');
+            createRow('??', 'Saved NPC 1', '??');
 
             break;
             
@@ -73,7 +79,7 @@ renderCreateEncounter = () => {
             text.textContent = 'Select your monster\'s';
             addBtn.textContent = '+ add new monster';
 
-            createRow('# ??', 'MONSTER 1', 'Init ??');
+            createRow('# ??', 'MONSTER 1', '??');
 
             break;
 
@@ -96,6 +102,14 @@ renderCreateEncounter = () => {
             renderCreateEncounter();
         }
     })
+
+    let closeBtns = document.querySelectorAll('.close')
+
+    for (let i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].addEventListener('click', function() {
+            console.log('click', this.parentElement)
+        })
+    }
 
     // next page
     let nextBtn = document.createElement('button');
@@ -121,37 +135,44 @@ renderCreateEncounter = () => {
     footerNav.append(prevBtn, nextBtn);
 }
 
-createRow = (info, title, initiative) => {
-    let selectionDiv = document.createElement('div');
-    selectionDiv.classList.add('container', 'mt-4')
+createRow = (info, title, secondary, initiative) => {
+    let infoText;
 
+    if (pageIndex == 0) {
+        infoText = 'Lvl';
+    } else if (pageIndex == 1) {
+        infoText = 'CR';
+    } else {
+        infoText = '#';
+    }
+
+    let row = 
+    `
+    <div class="player-level col-2 border bg-secondary d-flex flex-column justify-content-center align-items-center">
+        <p class="m-0">${infoText}</p>
+        <p class="m-0">${info}</p>
+    </div>
+    <div class="row-title col-7 border-top border-bottom d-flex align-items-center">
+        <div>
+        <h5 class="m-0">${title}</h5>
+        <p class="m-0">${secondary}</p>
+        </div>
+        <span class="close">x</span>
+    </div>
+    <div class="col-2 border bg-secondary">
+        <p>${initiative}</p>
+    </div>
+ 
+    `;
+
+    let selectionDiv = document.querySelector('#selection-div')
     let selectionRow = document.createElement('div');
-    selectionRow.classList.add('row', 'justify-content-center');
+    selectionRow.classList.add('row', 'justify-content-center', 'my-3');
+    selectionRow.innerHTML += row;
 
-    let selectionInfo = document.createElement('div');
-    selectionInfo.textContent = info;
-    selectionInfo.classList.add('col-2', 'border', 'bg-secondary');
+    selectionDiv.append(selectionRow);
 
-    let selectionName = document.createElement('div');
-    selectionName.classList.add('col-7', 'border-top', 'border-bottom');
-    selectionName.textContent = title;
-
-    selectionName.addEventListener('click', function() {
-        if (this.classList.contains('bg-success')) {
-            this.classList.remove('bg-success');
-        } else {
-            this.classList.add('bg-success');
-        }
-    })
-
-    let selectionInit = document.createElement('div');
-    selectionInit.classList.add('col-2', 'border', 'bg-secondary');
-    selectionInit.textContent = initiative;
-
-    selectionRow.append(selectionInfo, selectionName, selectionInit);
-    selectionDiv.appendChild(selectionRow);
-
-    mainEl.appendChild(selectionDiv);
+    mainEl.append(selectionDiv);
 }
 
 printSummary = () => {
@@ -236,20 +257,20 @@ createNewPc = () => {
             <label for="pcClassInput" class="form-label">PC Class:</label>
             <select class="form-select" id="pcClassInput" aria-label="Possible classes">
                 <option selected>Choose a class</option>
-                <option value="barbarian">Barbarian</option>
-                <option value="bard">Bard</option>
-                <option value="cleric">Cleric</option>
-                <option value="druid">Druid</option>
-                <option value="fighter">Fighter</option>
-                <option value="monk">Monk</option>
-                <option value="paladin">Paladin</option>
-                <option value="ranger">Ranger</option>
-                <option value="rogue">Rogue</option>
-                <option value="sorcerer">Sorcerer</option>
-                <option value="warlock">Warlock</option>
-                <option value="wizard">Wizard</option>
-                <option value="artificer">Artificer</option>
-                <option value="other">Other</option>
+                <option value="Barbarian">Barbarian</option>
+                <option value="Bard">Bard</option>
+                <option value="Cleric">Cleric</option>
+                <option value="Druid">Druid</option>
+                <option value="Fighter">Fighter</option>
+                <option value="Monk">Monk</option>
+                <option value="Paladin">Paladin</option>
+                <option value="Ranger">Ranger</option>
+                <option value="Rogue">Rogue</option>
+                <option value="Sorcerer">Sorcerer</option>
+                <option value="Warlock">Warlock</option>
+                <option value="Wizard">Wizard</option>
+                <option value="Artificer">Artificer</option>
+                <option value="Other">Other</option>
             </select>
         </div>
         <div class="mb-3">
@@ -283,6 +304,13 @@ createNewPc = () => {
 
     mainEl.innerHTML = form;
 
+    let backBtn = document.createElement('button');
+    backBtn.textContent = 'Back';
+    backBtn.classList.add('btn', 'btn-secondary', 'btn-lg', 'mb-2', 'col-12');
+    backBtn.addEventListener('click', function() {
+        renderCreateEncounter();
+    })
+
     let addPcBtn = document.createElement('button');
     addPcBtn.textContent = 'Add PC';
     addPcBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-12');
@@ -298,7 +326,7 @@ createNewPc = () => {
         renderCreateEncounter();
     })
 
-    footerNav.append(addPcBtn)
+    footerNav.append(backBtn, addPcBtn)
 }
 
 // * EVENT LISTENERS
