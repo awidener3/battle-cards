@@ -14,6 +14,8 @@ const footerNav = document.querySelector('#footer-navigation')
 let pageIndex = 0;
 
 // * FUNCTIONS
+
+// renders the create encounter section of the application
 renderCreateEncounter = () => {
     mainEl.textContent = '';
     headerTitle.textContent = 'CREATE NEW ENCOUNTER'
@@ -53,7 +55,7 @@ renderCreateEncounter = () => {
 
     // uses current pageIndex to dynamically change what is displayed
     switch (pageIndex) {
-        case 0: // page 1
+        case 0: // * pc's
             console.log('page 0');
             text.textContent = 'Select your players:';
             addBtn.textContent = '+ add new PC';
@@ -72,7 +74,7 @@ renderCreateEncounter = () => {
 
             break;
 
-        case 1: // page 2
+        case 1: // * npc's
             console.log(`page 1`);
             text.textContent = 'Select your NPC\'s:';
             addBtn.textContent = '+ add new NPC';
@@ -90,7 +92,7 @@ renderCreateEncounter = () => {
             })
             break;
             
-        case 2: // page 3
+        case 2: // * monsters
             console.log(`page 2`);
             text.textContent = 'Select your monster\'s';
             addBtn.textContent = '+ add new monster';
@@ -99,6 +101,10 @@ renderCreateEncounter = () => {
 
             selectionName.textContent = 'MONSTER';
             break;
+        
+        case 3: // * summary
+            printSummary();
+            return;
 
         default:
             console.log('error');
@@ -146,6 +152,26 @@ renderCreateEncounter = () => {
     // ! increase index count
 
     footerNav.appendChild(nextBtn);
+}
+
+printSummary = () => {
+    headerTitle.textContent = 'ENCOUNTER SUMMARY';
+
+    footerNav.textContent = '';
+    let prevBtn = document.createElement('button');
+    prevBtn.textContent = '<< prev';
+    prevBtn.classList.add('btn');
+    prevBtn.classList.add('btn-secondary');
+    prevBtn.classList.add('col-5');
+    prevBtn.addEventListener('click', function() {
+        if (pageIndex === 0) {
+            location.reload();
+        } else {
+            pageIndex--;
+            renderCreateEncounter();
+        }
+    })
+    footerNav.appendChild(prevBtn);
 }
 
 // createEncounterPageTwo = () => {
