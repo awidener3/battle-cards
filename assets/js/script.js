@@ -12,7 +12,8 @@ const footerNav = document.querySelector('#footer-navigation')
 // * GLOBAL VARIABLES
 // controls current page and what is displayed
 let pageIndex = 0;
-const savedPc = [];
+
+let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
 
 // * CONSTRUCTORS
 
@@ -54,8 +55,8 @@ renderCreateEncounter = () => {
             addBtn.addEventListener('click', createNewPc);
 
             // rows will dynamically update depending on saved/created/searched pc's/npc's/monsters
-            for (let i = 0; i < savedPc.length; i++) {
-                createRow(savedPc[i].pcLevel, savedPc[i].pcName, `Init ??`);
+            for (let i = 0; i < storedPc.length; i++) {
+                createRow(storedPc[i].pcLevel, storedPc[i].pcName, `Init ??`);
             }
 
             break;
@@ -291,7 +292,8 @@ createNewPc = () => {
         let pcLevel = document.querySelector('#pcLevelInput').value;
         
         const player = new Pc(pcName, pcClass, pcLevel);
-        savedPc.push(player);
+        storedPc.push(player);
+        localStorage.setItem('playerCharacter', JSON.stringify(storedPc))
 
         renderCreateEncounter();
     })
