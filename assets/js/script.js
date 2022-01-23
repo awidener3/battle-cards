@@ -31,6 +31,7 @@ class Pc {
 renderCreateEncounter = () => {
     mainEl.textContent = '';
 
+    // pushes to summary page before adding any elements below
     if (pageIndex > 2) {
         printSummary();
         return;
@@ -79,12 +80,22 @@ renderCreateEncounter = () => {
             text.textContent = 'Select your monster\'s';
             addBtn.textContent = '+ add new monster';
 
-            createRow('# ??', 'MONSTER 1', '??');
+            createRow('??', 'MONSTER 1', '??');
 
             break;
 
         default:
             console.log('error');
+    }
+
+    // handles close button on each row
+    let closeBtns = document.querySelectorAll('.close')
+
+    for (let i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].addEventListener('click', function() {
+            console.log('click', this.parentElement.parentElement)
+            this.parentElement.parentElement.remove();
+        })
     }
 
     // navigation buttons
@@ -103,13 +114,6 @@ renderCreateEncounter = () => {
         }
     })
 
-    let closeBtns = document.querySelectorAll('.close')
-
-    for (let i = 0; i < closeBtns.length; i++) {
-        closeBtns[i].addEventListener('click', function() {
-            console.log('click', this.parentElement)
-        })
-    }
 
     // next page
     let nextBtn = document.createElement('button');

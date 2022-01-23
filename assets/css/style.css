@@ -2,6 +2,10 @@ body {
     font-family: monospace;
 }
 
+header {
+    background: white;
+}
+
 footer {
     background-color: white;
 }
