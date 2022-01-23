@@ -12,6 +12,17 @@ const footerNav = document.querySelector('#footer-navigation')
 // * GLOBAL VARIABLES
 // controls current page and what is displayed
 let pageIndex = 0;
+const savedPc = [];
+
+// * CONSTRUCTORS
+
+class Pc {
+    constructor(pcName, pcClass, pcLevel) {
+        this.pcName = pcName;
+        this.pcClass = pcClass;
+        this.pcLevel = pcLevel;
+    }
+}
 
 // * FUNCTIONS
 
@@ -43,7 +54,9 @@ renderCreateEncounter = () => {
             addBtn.addEventListener('click', createNewPc);
 
             // rows will dynamically update depending on saved/created/searched pc's/npc's/monsters
-            createRow('Lvl ??', 'Saved PC 1', 'Init ??');
+            for (let i = 0; i < savedPc.length; i++) {
+                createRow(savedPc[i].pcLevel, savedPc[i].pcName, `Init ??`);
+            }
 
             break;
 
@@ -212,11 +225,75 @@ createNewPc = () => {
     footerNav.textContent = '';
     headerTitle.textContent = 'CREATE NEW PC'
 
+    let form = `
+    <form autocomplete="off">
+        <div class="mb-3">
+            <label for="pcNameInput" class="form-label">PC Name:</label>
+            <input type=text class="form-control" id="pcNameInput" placeholder="Type a name...">
+        </div>
+        <div class="mb-3">
+            <label for="pcClassInput" class="form-label">PC Class:</label>
+            <select class="form-select" id="pcClassInput" aria-label="Possible classes">
+                <option selected>Choose a class</option>
+                <option value="barbarian">Barbarian</option>
+                <option value="bard">Bard</option>
+                <option value="cleric">Cleric</option>
+                <option value="druid">Druid</option>
+                <option value="fighter">Fighter</option>
+                <option value="monk">Monk</option>
+                <option value="paladin">Paladin</option>
+                <option value="ranger">Ranger</option>
+                <option value="rogue">Rogue</option>
+                <option value="sorcerer">Sorcerer</option>
+                <option value="warlock">Warlock</option>
+                <option value="wizard">Wizard</option>
+                <option value="artificer">Artificer</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for"pcLevelInput" class"form-label">PC Level:</label>
+            <select class="form-select" id="pcLevelInput" aria-label="PC Level">
+                <option selected>Choose a level</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+    </form>
+    `;
+
+    mainEl.innerHTML = form;
+
     let addPcBtn = document.createElement('button');
     addPcBtn.textContent = 'Add PC';
     addPcBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-12');
     addPcBtn.addEventListener('click', function() {
-        // start encounter
+        let pcName = document.querySelector('#pcNameInput').value;
+        let pcClass = document.querySelector('#pcClassInput').value;
+        let pcLevel = document.querySelector('#pcLevelInput').value;
+        
+        const player = new Pc(pcName, pcClass, pcLevel);
+        savedPc.push(player);
+
+        renderCreateEncounter();
     })
 
     footerNav.append(addPcBtn)
