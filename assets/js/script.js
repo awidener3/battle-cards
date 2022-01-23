@@ -24,7 +24,7 @@ renderCreateEncounter = () => {
         return;
     }
 
-    headerTitle.textContent = 'CREATE NEW ENCOUNTER'
+    headerTitle.textContent = 'CREATE NEW ENCOUNTER';
     let contentDiv = document.createElement('div');
 
     let text = document.createElement('p');
@@ -40,6 +40,7 @@ renderCreateEncounter = () => {
         case 0: // * pc's
             text.textContent = 'Select your players:';
             addBtn.textContent = '+ add new PC';
+            addBtn.addEventListener('click', createNewPc);
 
             // rows will dynamically update depending on saved/created/searched pc's/npc's/monsters
             createRow('Lvl ??', 'Saved PC 1', 'Init ??');
@@ -204,6 +205,21 @@ printSummary = () => {
     difficultyMeter.append(meterText);
     
     footerNav.append(runBtn, difficultyMeter, prevBtn, clearBtn);
+}
+
+createNewPc = () => {
+    mainEl.textContent = '';
+    footerNav.textContent = '';
+    headerTitle.textContent = 'CREATE NEW PC'
+
+    let addPcBtn = document.createElement('button');
+    addPcBtn.textContent = 'Add PC';
+    addPcBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-12');
+    addPcBtn.addEventListener('click', function() {
+        // start encounter
+    })
+
+    footerNav.append(addPcBtn)
 }
 
 // * EVENT LISTENERS
