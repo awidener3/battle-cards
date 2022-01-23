@@ -18,79 +18,103 @@ renderCreateEncounter = () => {
     mainEl.textContent = '';
     headerTitle.textContent = 'CREATE NEW ENCOUNTER'
     let contentDiv = document.createElement('div');
+
     let text = document.createElement('p');
+
+    let addBtn = document.createElement('button');
+    addBtn.classList.add('btn');
+    addBtn.classList.add('btn-primary');
+    addBtn.classList.add('btn-lg');
+    addBtn.classList.add('col-12');
+
+    let selectionDiv = document.createElement('div');
+    selectionDiv.classList.add('container');
+    selectionDiv.classList.add('mt-4');
+
+    let selectionRow = document.createElement('div');
+    selectionRow.classList.add('row');
+    selectionRow.classList.add('justify-content-center');
+
+    let selectionInfo = document.createElement('div');
+    selectionInfo.classList.add('col-2');
+    selectionInfo.classList.add('border');
+    selectionInfo.classList.add('bg-secondary');
+
+    let selectionName = document.createElement('div');
+    selectionName.classList.add('col-7');
+    selectionName.classList.add('border-top');
+    selectionName.classList.add('border-bottom');
+
+    let selectionInit = document.createElement('div');
+    selectionInit.classList.add('col-2');
+    selectionInit.classList.add('border');
+    selectionInit.classList.add('bg-secondary');
+    selectionInit.textContent = 'Init ??';
 
     // uses current pageIndex to dynamically change what is displayed
     switch (pageIndex) {
-        case 0:
+        case 0: // page 1
             console.log('page 0');
             text.textContent = 'Select your players:';
+            addBtn.textContent = '+ add new PC';
+
+            selectionInfo.textContent = 'Lvl ??';
+
+            selectionName.textContent = 'saved PC 1';
+
+            selectionName.addEventListener('click', function() {
+                if (this.classList.contains('bg-success')) {
+                    this.classList.remove('bg-success');
+                } else {
+                    this.classList.add('bg-success');
+                }
+            })
+
             break;
-        case 1:
+
+        case 1: // page 2
             console.log(`page 1`);
             text.textContent = 'Select your NPC\'s:';
-            break;
-        case 2:
-            text.textContent = 'Select your monster\'s';
+            addBtn.textContent = '+ add new NPC';
+
+            selectionInfo.textContent = 'CR ??';
+
+            selectionName.textContent = 'saved NPC 1';
+
+            selectionName.addEventListener('click', function() {
+                if (this.classList.contains('bg-success')) {
+                    this.classList.remove('bg-success');
+                } else {
+                    this.classList.add('bg-success');
+                }
+            })
             break;
             
+        case 2: // page 3
+            console.log(`page 2`);
+            text.textContent = 'Select your monster\'s';
+            addBtn.textContent = '+ add new monster';
+
+            selectionInfo.textContent = '# ##';
+
+            selectionName.textContent = 'MONSTER';
+            break;
+
         default:
             console.log('error');
     }
 
     contentDiv.appendChild(text);
-
-    let addPlayerBtn = document.createElement('button');
-    addPlayerBtn.textContent = '+ add new PC';
-    addPlayerBtn.classList.add('btn');
-    addPlayerBtn.classList.add('btn-primary');
-    addPlayerBtn.classList.add('btn-lg');
-    addPlayerBtn.classList.add('col-12');
-    contentDiv.appendChild(addPlayerBtn);
-
+    contentDiv.appendChild(addBtn);
     mainEl.appendChild(contentDiv);
 
-    // ? saved pc's
+    selectionRow.appendChild(selectionInfo);
+    selectionRow.appendChild(selectionName);
+    selectionRow.appendChild(selectionInit);
 
-    let pcDiv = document.createElement('div');
-    pcDiv.classList.add('container')
-    pcDiv.classList.add('mt-4')
-    
-    let pcRow = document.createElement('div');
-    pcRow.classList.add('row')
-    pcRow.classList.add('justify-content-center')
+    selectionDiv.appendChild(selectionRow);
 
-    let pcLvl = document.createElement('div');
-    pcLvl.classList.add('col-2');
-    pcLvl.classList.add('border');
-    pcLvl.classList.add('bg-secondary');
-    pcLvl.textContent = 'Lvl ??';
-    pcRow.appendChild(pcLvl);
-
-    let pcName = document.createElement('div');
-    pcName.classList.add('col-7')
-    pcName.classList.add('border-top')
-    pcName.classList.add('border-bottom')
-    pcName.textContent = 'saved PC 1';
-    pcName.addEventListener('click', function() {
-        if (this.classList.contains('bg-success')) {
-            this.classList.remove('bg-success');
-        } else {
-            this.classList.add('bg-success');
-        }
-    })
-    pcRow.appendChild(pcName);
-
-    let pcInit = document.createElement('div');
-    pcInit.classList.add('col-2');
-    pcInit.classList.add('border');
-    pcInit.classList.add('bg-secondary');
-    pcInit.textContent = 'Init ??';
-    pcRow.appendChild(pcInit);
-
-    pcDiv.appendChild(pcRow);
-
-    mainEl.appendChild(pcDiv);
+    mainEl.appendChild(selectionDiv);
 
     //? footer manipulation
 
