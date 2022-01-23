@@ -63,7 +63,7 @@ renderCreateEncounter = () => {
 
             // rows will dynamically update depending on saved/created/searched pc's/npc's/monsters
             for (let i = 0; i < storedPc.length; i++) {
-                createRow(storedPc[i].pcLevel, storedPc[i].pcName, storedPc[i].pcClass, `Init ??`);
+                createRow(storedPc[i].pcLevel, storedPc[i].pcName, storedPc[i].pcClass, `Init ??`, i);
             }
 
             break;
@@ -93,8 +93,13 @@ renderCreateEncounter = () => {
 
     for (let i = 0; i < closeBtns.length; i++) {
         closeBtns[i].addEventListener('click', function() {
-            console.log('click', this.parentElement.parentElement)
+            // remove from page
             this.parentElement.parentElement.remove();
+            // remove from local storage
+            let index = this.parentElement.parentElement.dataset.index;
+            let pcArray = JSON.parse(localStorage.getItem('playerCharacter'));
+            pcArray.splice(index, 1);
+            localStorage.setItem('playerCharacter', JSON.stringify(pcArray));
         })
     }
 
@@ -139,7 +144,7 @@ renderCreateEncounter = () => {
     footerNav.append(prevBtn, nextBtn);
 }
 
-createRow = (info, title, secondary, initiative) => {
+createRow = (info, title, secondary, initiative, index) => {
     let infoText;
 
     if (pageIndex == 0) {
@@ -172,6 +177,7 @@ createRow = (info, title, secondary, initiative) => {
     let selectionDiv = document.querySelector('#selection-div')
     let selectionRow = document.createElement('div');
     selectionRow.classList.add('row', 'justify-content-center', 'my-3');
+    selectionRow.dataset.index = index;
     selectionRow.innerHTML += row;
 
     selectionDiv.append(selectionRow);
