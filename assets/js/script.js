@@ -12,8 +12,11 @@ const footerNav = document.querySelector('#footer-navigation')
 // * GLOBAL VARIABLES
 // controls current page and what is displayed
 let pageIndex = 0;
-// ? might not need this here?
-// let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
+let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
+
+if (storedPc == null) {
+    storedPc = [];
+}
 
 // * CONSTRUCTORS
 
@@ -29,7 +32,6 @@ class Pc {
 
 // renders the create encounter section of the application
 renderCreateEncounter = () => {
-    let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
     mainEl.textContent = '';
 
     // pushes to summary page before adding any elements below
