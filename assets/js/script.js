@@ -57,18 +57,17 @@ renderCreateEncounter = () => {
 
 	mainEl.appendChild(selectionDiv);
 
+	// updates storedPc array
+	storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
+	if (storedPc == null) {
+		storedPc = [];
+	}
 	// uses current pageIndex to dynamically change what is displayed
 	switch (pageIndex) {
 		case 0: // * pc's
 			text.textContent = "Select your PC's:";
 			addBtn.textContent = '+ add new PC';
 			addBtn.addEventListener('click', createNewPc);
-
-			// updates storedPc array
-			storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
-			if (storedPc == null) {
-				storedPc = [];
-			}
 
 			// rows will dynamically update depending on saved/created/searched pc's/npc's/monsters
 			for (let i = 0; i < storedPc.length; i++) {
@@ -196,10 +195,7 @@ createRow = (info, title, secondary, index, object) => {
 	selectionRow.dataset.index = index;
 	selectionRow.innerHTML += row;
 
-	// TODO: collect info to add to encounter
 	selectionRow.addEventListener('click', function () {
-		console.log('Before: ', stagedArr);
-
 		if (selectionRow.classList.contains('selected')) {
 			selectionRow.classList.remove('selected');
 			stagedArr.splice(
@@ -210,7 +206,6 @@ createRow = (info, title, secondary, index, object) => {
 			selectionRow.classList.add('selected');
 			stagedArr.push(object);
 		}
-		console.log('After: ', stagedArr);
 	});
 
 	selectionDiv.append(selectionRow);
@@ -308,20 +303,20 @@ createNewPc = () => {
             <label for="pcClassInput" class="form-label">PC Class:</label>
             <select class="form-select" id="pcClassInput" aria-label="Possible classes">
                 <option selected>Choose a class</option>
-                <option value="Barbarian">Barbarian</option>
-                <option value="Bard">Bard</option>
-                <option value="Cleric">Cleric</option>
-                <option value="Druid">Druid</option>
-                <option value="Fighter">Fighter</option>
-                <option value="Monk">Monk</option>
-                <option value="Paladin">Paladin</option>
-                <option value="Ranger">Ranger</option>
-                <option value="Rogue">Rogue</option>
-                <option value="Sorcerer">Sorcerer</option>
-                <option value="Warlock">Warlock</option>
-                <option value="Wizard">Wizard</option>
-                <option value="Artificer">Artificer</option>
-                <option value="Other">Other</option>
+                <option value="🪓 Barbarian"> 🪓 Barbarian</option>
+                <option value="🎼 Bard"> 🎼 Bard</option>
+                <option value="🙏 Cleric">🙏 Cleric</option>
+                <option value="🌱 Druid">🌱 Druid</option>
+                <option value="🤺 Fighter">🤺 Fighter</option>
+                <option value="👊 Monk">👊 Monk</option>
+                <option value="⛪ Paladin">⛪ Paladin</option>
+                <option value="🏹 Ranger">🏹 Ranger</option>
+                <option value="🔪 Rogue">🔪 Rogue</option>
+                <option value="🎇 Sorcerer">🎇 Sorcerer</option>
+                <option value="👿 Warlock">👿 Warlock</option>
+                <option value="📔 Wizard">📔 Wizard</option>
+                <option value="🔨 Artificer">🔨 Artificer</option>
+                <option value="❓ Other">❓ Other</option>
             </select>
         </div>
         <div class="mb-3">
