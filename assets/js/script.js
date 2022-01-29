@@ -1,5 +1,5 @@
 // * DOM ELEMENTS
-const headerTitle = document.querySelector('#header-title')
+const headerTitle = document.querySelector('#header-title');
 const mainEl = document.querySelector('main');
 const createEncounterBtn = document.querySelector('#create-encounter-btn');
 const savedEncounterBtn = document.querySelector('#saved-encounter-btn');
@@ -7,7 +7,7 @@ const addPcBtn = document.querySelector('#add-pc-btn');
 const addNpcBtn = document.querySelector('#add-npc-btn');
 const addMonsterBtn = document.querySelector('#add-monster-btn');
 const homeBtn = document.querySelector('#home-btn');
-const footerNav = document.querySelector('#footer-navigation')
+const footerNav = document.querySelector('#footer-navigation');
 
 // * GLOBAL VARIABLES
 // controls current page and what is displayed
@@ -15,151 +15,163 @@ let pageIndex = 0;
 let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
 
 if (storedPc == null) {
-    storedPc = [];
+	storedPc = [];
 }
 
 // * CONSTRUCTORS
 
 class Pc {
-    constructor(pcName, pcClass, pcLevel) {
-        this.pcName = pcName;
-        this.pcClass = pcClass;
-        this.pcLevel = pcLevel;
-    }
+	constructor(pcName, pcClass, pcLevel) {
+		this.pcName = pcName;
+		this.pcClass = pcClass;
+		this.pcLevel = pcLevel;
+	}
 }
 
 // * FUNCTIONS
 
 // renders the create encounter section of the application
 renderCreateEncounter = () => {
-    mainEl.textContent = '';
+	mainEl.textContent = '';
 
-    // pushes to summary page before adding any elements below
-    if (pageIndex > 2) {
-        printSummary();
-        return;
-    }
+	// pushes to summary page before adding any elements below
+	if (pageIndex > 2) {
+		printSummary();
+		return;
+	}
 
-    headerTitle.textContent = 'CREATE NEW ENCOUNTER';
-    let contentDiv = document.createElement('div');
-    let text = document.createElement('p');
-    let addBtn = document.createElement('button');
-    addBtn.classList.add('btn', 'btn-primary', 'btn-lg', 'col-12');
-    
-    contentDiv.append(text, addBtn);
-    mainEl.appendChild(contentDiv);
+	headerTitle.textContent = 'CREATE NEW ENCOUNTER';
+	let contentDiv = document.createElement('div');
+	let text = document.createElement('p');
+	let addBtn = document.createElement('button');
+	addBtn.classList.add('btn', 'btn-primary', 'btn-lg', 'col-12');
 
-    let selectionDiv = document.createElement('div');
-    selectionDiv.classList.add('container', 'mt-4')
-    selectionDiv.setAttribute('id', 'selection-div');
+	contentDiv.append(text, addBtn);
+	mainEl.appendChild(contentDiv);
 
-    mainEl.appendChild(selectionDiv)
+	let selectionDiv = document.createElement('div');
+	selectionDiv.classList.add('container', 'mt-4');
+	selectionDiv.setAttribute('id', 'selection-div');
 
-    // uses current pageIndex to dynamically change what is displayed
-    switch (pageIndex) {
-        case 0: // * pc's
-            text.textContent = 'Select your PC\'s:';
-            addBtn.textContent = '+ add new PC';
-            addBtn.addEventListener('click', createNewPc);
+	mainEl.appendChild(selectionDiv);
 
-            // rows will dynamically update depending on saved/created/searched pc's/npc's/monsters
-            for (let i = 0; i < storedPc.length; i++) {
-                createRow(storedPc[i].pcLevel, storedPc[i].pcName, storedPc[i].pcClass, `Init ??`, i);
-            }
+	// uses current pageIndex to dynamically change what is displayed
+	switch (pageIndex) {
+		case 0: // * pc's
+			text.textContent = "Select your PC's:";
+			addBtn.textContent = '+ add new PC';
+			addBtn.addEventListener('click', createNewPc);
 
-            break;
+			// updates storedPc array
+			storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
 
-        case 1: // * npc's
-            text.textContent = 'Select your NPC\'s:';
-            addBtn.textContent = '+ add new NPC';
+			// rows will dynamically update depending on saved/created/searched pc's/npc's/monsters
+			for (let i = 0; i < storedPc.length; i++) {
+				createRow(
+					storedPc[i].pcLevel,
+					storedPc[i].pcName,
+					storedPc[i].pcClass,
+					`Init ??`,
+					i
+				);
+			}
 
-            createRow('??', 'Saved NPC 1', '??');
+			break;
 
-            break;
-            
-        case 2: // * monsters
-            text.textContent = 'Select your monster\'s';
-            addBtn.textContent = '+ add new monster';
+		case 1: // * npc's
+			text.textContent = "Select your NPC's:";
+			addBtn.textContent = '+ add new NPC';
 
-            createRow('??', 'MONSTER 1', '??');
+			createRow('??', 'Saved NPC 1', '??');
 
-            break;
+			break;
 
-        default:
-            console.log('error');
-    }
+		case 2: // * monsters
+			text.textContent = "Select your monster's";
+			addBtn.textContent = '+ add new monster';
 
-    // handles close button on each row
-    let closeBtns = document.querySelectorAll('.close')
+			createRow('??', 'MONSTER 1', '??');
 
-    for (let i = 0; i < closeBtns.length; i++) {
-        closeBtns[i].addEventListener('click', function() {
+			break;
 
-            if (confirm('Are you sure you want to delete?')) {
-                // remove from page
-                this.parentElement.parentElement.remove();
-                // remove from local storage
-                let index = this.parentElement.parentElement.dataset.index;
-                let pcArray = JSON.parse(localStorage.getItem('playerCharacter'));
-                pcArray.splice(index, 1);
-                localStorage.setItem('playerCharacter', JSON.stringify(pcArray));
-            }
-        })
-    }
+		default:
+			console.log('error');
+	}
 
-    // navigation buttons
-    footerNav.textContent = '';
+	// handles close button on each row
+	let closeBtns = document.querySelectorAll('.close');
 
-    // previous page
-    let prevBtn = document.createElement('button');
-    prevBtn.textContent = '<< prev';
-    prevBtn.classList.add('btn', 'btn-secondary', 'col-5');
-    prevBtn.addEventListener('click', function() {
-        if (pageIndex === 0) {
-            location.reload();
-        } else {
-            pageIndex--;
-            renderCreateEncounter();
-        }
-    })
+	for (let i = 0; i < closeBtns.length; i++) {
+		closeBtns[i].addEventListener('click', function () {
+			if (confirm('Are you sure you want to delete?')) {
+				// remove from page
+				this.parentElement.parentElement.remove();
+				// remove from local storage
+				let index = this.parentElement.parentElement.dataset.index;
+				let pcArray = JSON.parse(
+					localStorage.getItem('playerCharacter')
+				);
+				pcArray.splice(index, 1);
+				localStorage.setItem(
+					'playerCharacter',
+					JSON.stringify(pcArray)
+				);
+			}
+		});
+	}
 
-    // next page
-    let nextBtn = document.createElement('button');
-    nextBtn.textContent = 'next >>';
-    nextBtn.classList.add('btn', 'btn-secondary', 'col-5');
-    nextBtn.addEventListener('click', function() {
-        pageIndex++;
-        renderCreateEncounter();
-    })
-    
-    footerNav.append(prevBtn, nextBtn);
+	// navigation buttons
+	footerNav.textContent = '';
 
-    let difficultyMeter = document.createElement('div');
-    let meterText = document.createElement('p');
-    meterText.textContent = 'DIFFICULTY';
+	// previous page
+	let prevBtn = document.createElement('button');
+	prevBtn.textContent = '<< prev';
+	prevBtn.classList.add('btn', 'btn-secondary', 'col-5');
+	prevBtn.addEventListener('click', function () {
+		if (pageIndex === 0) {
+			location.reload();
+		} else {
+			pageIndex--;
+			renderCreateEncounter();
+		}
+	});
 
-    // color will change with function that calculates difficulty
-    difficultyMeter.classList.add('alert', 'alert-success', 'mt-2');
-    meterText.classList.add('text-center', 'm-0');
+	// next page
+	let nextBtn = document.createElement('button');
+	nextBtn.textContent = 'next >>';
+	nextBtn.classList.add('btn', 'btn-secondary', 'col-5');
+	nextBtn.addEventListener('click', function () {
+		pageIndex++;
+		renderCreateEncounter();
+	});
 
-    difficultyMeter.append(meterText);
-    footerNav.append(difficultyMeter);
-    footerNav.append(prevBtn, nextBtn);
-}
+	footerNav.append(prevBtn, nextBtn);
+
+	let difficultyMeter = document.createElement('div');
+	let meterText = document.createElement('p');
+	meterText.textContent = 'DIFFICULTY';
+
+	// color will change with function that calculates difficulty
+	difficultyMeter.classList.add('alert', 'alert-success', 'mt-2');
+	meterText.classList.add('text-center', 'm-0');
+
+	difficultyMeter.append(meterText);
+	footerNav.append(difficultyMeter);
+	footerNav.append(prevBtn, nextBtn);
+};
 
 createRow = (info, title, secondary, initiative, index) => {
-    let infoText;
+	let infoText;
 
-    if (pageIndex == 0) {
-        infoText = 'Lvl';
-    } else if (pageIndex == 1) {
-        infoText = 'CR';
-    } else {
-        infoText = '#';
-    }
+	if (pageIndex == 0) {
+		infoText = 'Lvl';
+	} else if (pageIndex == 1) {
+		infoText = 'CR';
+	} else {
+		infoText = '#';
+	}
 
-    let row = 
-    `
+	let row = `
     <div class="player-level col-2 border bg-secondary d-flex flex-column justify-content-center align-items-center">
         <p class="m-0">${infoText}</p>
         <p class="m-0">${info}</p>
@@ -176,105 +188,104 @@ createRow = (info, title, secondary, initiative, index) => {
     </div>
     `;
 
-    let selectionDiv = document.querySelector('#selection-div')
-    let selectionRow = document.createElement('div');
-    selectionRow.classList.add('row', 'justify-content-center', 'my-3');
-    selectionRow.dataset.index = index;
-    selectionRow.innerHTML += row;
+	let selectionDiv = document.querySelector('#selection-div');
+	let selectionRow = document.createElement('div');
+	selectionRow.classList.add('row', 'justify-content-center', 'my-3');
+	selectionRow.dataset.index = index;
+	selectionRow.innerHTML += row;
 
-    // TODO: collect info to add to encounter
-    selectionRow.addEventListener('click', function() {
-        console.log('click');
-        // will collect information from this row and add to encounter
-    })
+	// TODO: collect info to add to encounter
+	selectionRow.addEventListener('click', function () {
+		console.log('click');
+		// will collect information from this row and add to encounter
+	});
 
-    selectionDiv.append(selectionRow);
+	selectionDiv.append(selectionRow);
 
-    mainEl.append(selectionDiv);
-}
+	mainEl.append(selectionDiv);
+};
 
 printSummary = () => {
-    headerTitle.textContent = 'ENCOUNTER SUMMARY';
+	headerTitle.textContent = 'ENCOUNTER SUMMARY';
 
-    // main content
-    let summaryContent = document.createElement('div');
+	// main content
+	let summaryContent = document.createElement('div');
 
-    let pcDiv = document.createElement('div');
-    let pcHeader = document.createElement('h4');
-    pcHeader.textContent = 'PC\'s:'
-    pcDiv.append(pcHeader);
-    
-    let npcDiv = document.createElement('div');
-    let npcHeader = document.createElement('h4');
-    npcHeader.textContent = 'NPC\'s:'
-    npcDiv.append(npcHeader);
-    
-    let monDiv = document.createElement('div');
-    let monHeader = document.createElement('h4');
-    monHeader.textContent = 'monsters\'s:'
-    monDiv.append(monHeader);
+	let pcDiv = document.createElement('div');
+	let pcHeader = document.createElement('h4');
+	pcHeader.textContent = "PC's:";
+	pcDiv.append(pcHeader);
 
-    summaryContent.append(pcDiv, npcDiv, monDiv);
-    mainEl.append(summaryContent);
+	let npcDiv = document.createElement('div');
+	let npcHeader = document.createElement('h4');
+	npcHeader.textContent = "NPC's:";
+	npcDiv.append(npcHeader);
 
+	let monDiv = document.createElement('div');
+	let monHeader = document.createElement('h4');
+	monHeader.textContent = "monsters's:";
+	monDiv.append(monHeader);
 
-    // bottom buttons
-    let saveBtn = document.createElement('button');
-    saveBtn.textContent = 'save encounter';
-    saveBtn.classList.add('btn', 'btn-secondary', 'btn-lg', 'mb-1', 'col-5');
-    saveBtn.addEventListener('click', function() {
-        // save
-    })
+	summaryContent.append(pcDiv, npcDiv, monDiv);
+	mainEl.append(summaryContent);
 
-    let runBtn = document.createElement('button');
-    runBtn.textContent = 'run battle >>';
-    runBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-5');
-    runBtn.addEventListener('click', function() {
-        // start encounter
-    })
+	// bottom buttons
+	let saveBtn = document.createElement('button');
+	saveBtn.textContent = 'save encounter';
+	saveBtn.classList.add('btn', 'btn-secondary', 'btn-lg', 'mb-1', 'col-5');
+	saveBtn.addEventListener('click', function () {
+		// save
+	});
 
-    // * difficulty meter
-    let difficultyMeter = document.createElement('div');
-    let meterText = document.createElement('p');
-    meterText.textContent = 'DIFFICULTY';
+	let runBtn = document.createElement('button');
+	runBtn.textContent = 'run battle >>';
+	runBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-5');
+	runBtn.addEventListener('click', function () {
+		// start encounter
+	});
 
-    // color will change with function that calculates difficulty
-    difficultyMeter.classList.add('alert', 'alert-success', 'mt-2');
-    meterText.classList.add('text-center', 'm-0');
+	// * difficulty meter
+	let difficultyMeter = document.createElement('div');
+	let meterText = document.createElement('p');
+	meterText.textContent = 'DIFFICULTY';
 
-    difficultyMeter.append(meterText);
+	// color will change with function that calculates difficulty
+	difficultyMeter.classList.add('alert', 'alert-success', 'mt-2');
+	meterText.classList.add('text-center', 'm-0');
 
-    // clear buttons
-    footerNav.textContent = '';
-    let prevBtn = document.createElement('button');
-    prevBtn.textContent = '<< prev';
-    prevBtn.classList.add('btn', 'btn-secondary', 'col-5');
-    prevBtn.addEventListener('click', function() {
-        if (pageIndex === 0) {
-            location.reload();
-        } else {
-            pageIndex--;
-            renderCreateEncounter();
-        }
-    })
+	difficultyMeter.append(meterText);
 
-    let clearBtn = document.createElement('button');
-    clearBtn.textContent = 'clear';
-    clearBtn.classList.add('btn', 'btn-secondary', 'col-5');
-    clearBtn.addEventListener('click', function() {
-        pageIndex = 0;
-        renderCreateEncounter();
-    })
-    
-    footerNav.append(saveBtn, runBtn, difficultyMeter, prevBtn, clearBtn);
-}
+	// clear buttons
+	footerNav.textContent = '';
+	let prevBtn = document.createElement('button');
+	prevBtn.textContent = '<< prev';
+	prevBtn.classList.add('btn', 'btn-secondary', 'col-5');
+	prevBtn.addEventListener('click', function () {
+		if (pageIndex === 0) {
+			location.reload();
+		} else {
+			pageIndex--;
+			renderCreateEncounter();
+		}
+	});
+
+	let clearBtn = document.createElement('button');
+	clearBtn.textContent = 'clear';
+	clearBtn.classList.add('btn', 'btn-secondary', 'col-5');
+	clearBtn.addEventListener('click', function () {
+		pageIndex = 0;
+		renderCreateEncounter();
+	});
+
+	footerNav.append(saveBtn, runBtn, difficultyMeter, prevBtn, clearBtn);
+};
 
 createNewPc = () => {
-    mainEl.textContent = '';
-    footerNav.textContent = '';
-    headerTitle.textContent = 'CREATE NEW PC'
+	mainEl.textContent = '';
+	footerNav.textContent = '';
+	headerTitle.textContent = 'CREATE NEW PC';
 
-    let form = `
+	let form = `
     <form autocomplete="off">
         <div class="mb-3">
             <label for="pcNameInput" class="form-label">PC Name:</label>
@@ -329,34 +340,36 @@ createNewPc = () => {
     </form>
     `;
 
-    mainEl.innerHTML = form;
+	mainEl.innerHTML = form;
 
-    let backBtn = document.createElement('button');
-    backBtn.textContent = 'Back';
-    backBtn.classList.add('btn', 'btn-secondary', 'btn-lg', 'mb-2', 'col-12');
-    backBtn.addEventListener('click', function() {
-        renderCreateEncounter();
-    })
+	let backBtn = document.createElement('button');
+	backBtn.textContent = 'Back';
+	backBtn.classList.add('btn', 'btn-secondary', 'btn-lg', 'mb-2', 'col-12');
+	backBtn.addEventListener('click', function () {
+		renderCreateEncounter();
+	});
 
-    let addPcBtn = document.createElement('button');
-    addPcBtn.textContent = 'Add PC';
-    addPcBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-12');
-    addPcBtn.addEventListener('click', function() {
-        let pcName = document.querySelector('#pcNameInput').value;
-        let pcClass = document.querySelector('#pcClassInput').value;
-        let pcLevel = document.querySelector('#pcLevelInput').value;
-        
-        const player = new Pc(pcName, pcClass, pcLevel);
-        storedPc.push(player);
-        localStorage.setItem('playerCharacter', JSON.stringify(storedPc))
+	let addPcBtn = document.createElement('button');
+	addPcBtn.textContent = 'Add PC';
+	addPcBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-12');
+	addPcBtn.addEventListener('click', function () {
+		let pcName = document.querySelector('#pcNameInput').value;
+		let pcClass = document.querySelector('#pcClassInput').value;
+		let pcLevel = document.querySelector('#pcLevelInput').value;
 
-        renderCreateEncounter();
-    })
+		const player = new Pc(pcName, pcClass, pcLevel);
+		storedPc.push(player);
+		localStorage.setItem('playerCharacter', JSON.stringify(storedPc));
 
-    footerNav.append(backBtn, addPcBtn)
-}
+		renderCreateEncounter();
+	});
+
+	footerNav.append(addPcBtn, backBtn);
+};
 
 // * EVENT LISTENERS
 createEncounterBtn.addEventListener('click', renderCreateEncounter);
 
-homeBtn.addEventListener('click', function() {location.reload()});
+homeBtn.addEventListener('click', function () {
+	location.reload();
+});
