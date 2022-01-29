@@ -1,17 +1,22 @@
+import { Pc } from './pc.js';
+
 const headerTitle = document.querySelector('#header-title');
 const mainEl = document.querySelector('main');
 const footerNav = document.querySelector('#footer-navigation');
 
 let pageIndex = 0;
 let stagedArr = [];
+let storedPc = [];
 
-let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
-if (storedPc == null) {
-	storedPc = [];
-}
+const checkStoredPc = () => {
+	storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
+	if (storedPc == null) {
+		storedPc = [];
+	}
+};
 
 // renders the create encounter section of the application
-export const renderCreateEncounter = () => {
+export const createEncounter = () => {
 	mainEl.textContent = '';
 
 	// pushes to summary page before adding any elements below
@@ -36,11 +41,8 @@ export const renderCreateEncounter = () => {
 
 	mainEl.appendChild(selectionDiv);
 
-	// updates storedPc array
-	storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
-	if (storedPc == null) {
-		storedPc = [];
-	}
+	checkStoredPc();
+
 	// uses current pageIndex to dynamically change what is displayed
 	switch (pageIndex) {
 		case 0: // * pc's
@@ -48,7 +50,6 @@ export const renderCreateEncounter = () => {
 			addBtn.textContent = '+ add new PC';
 			addBtn.addEventListener('click', createNewPc);
 
-			// rows will dynamically update depending on saved/created/searched pc's/npc's/monsters
 			for (let i = 0; i < storedPc.length; i++) {
 				createRow(
 					storedPc[i].pcLevel,
@@ -60,14 +61,6 @@ export const renderCreateEncounter = () => {
 			}
 
 			break;
-
-		// case 1: // * npc's
-		// 	text.textContent = "Select your NPC's:";
-		// 	addBtn.textContent = '+ add new NPC';
-
-		// 	createRow('??', 'Saved NPC 1');
-
-		// 	break;
 
 		case 1: // * monsters
 			text.textContent = "Select your monster's";
@@ -117,7 +110,7 @@ export const renderCreateEncounter = () => {
 			location.reload();
 		} else {
 			pageIndex--;
-			renderCreateEncounter();
+			createEncounter();
 		}
 	});
 
@@ -127,7 +120,7 @@ export const renderCreateEncounter = () => {
 	nextBtn.classList.add('btn', 'btn-secondary', 'col-5');
 	nextBtn.addEventListener('click', function () {
 		pageIndex++;
-		renderCreateEncounter();
+		createEncounter();
 	});
 
 	footerNav.append(prevBtn, nextBtn);
@@ -254,7 +247,7 @@ const printSummary = () => {
 			location.reload();
 		} else {
 			pageIndex--;
-			renderCreateEncounter();
+			createEncounter();
 		}
 	});
 
@@ -263,7 +256,7 @@ const printSummary = () => {
 	clearBtn.classList.add('btn', 'btn-secondary', 'col-5');
 	clearBtn.addEventListener('click', function () {
 		pageIndex = 0;
-		renderCreateEncounter();
+		createEncounter();
 	});
 
 	footerNav.append(saveBtn, runBtn, difficultyMeter, prevBtn, clearBtn);
@@ -335,7 +328,7 @@ const createNewPc = () => {
 	backBtn.textContent = 'Back';
 	backBtn.classList.add('btn', 'btn-secondary', 'btn-lg', 'mb-2', 'col-12');
 	backBtn.addEventListener('click', function () {
-		renderCreateEncounter();
+		createEncounter();
 	});
 
 	let addPcBtn = document.createElement('button');
@@ -350,7 +343,7 @@ const createNewPc = () => {
 		storedPc.push(player);
 		localStorage.setItem('playerCharacter', JSON.stringify(storedPc));
 
-		renderCreateEncounter();
+		createEncounter();
 	});
 
 	footerNav.append(addPcBtn, backBtn);
