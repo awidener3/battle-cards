@@ -13,6 +13,7 @@ const footerNav = document.querySelector('#footer-navigation');
 // controls current page and what is displayed
 let pageIndex = 0;
 let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
+let stagedArr = [];
 
 if (storedPc == null) {
 	storedPc = [];
@@ -75,7 +76,8 @@ renderCreateEncounter = () => {
 					storedPc[i].pcLevel,
 					storedPc[i].pcName,
 					storedPc[i].pcClass,
-					i // this is used for dataset index
+					i, // this is used for dataset index
+					storedPc[i]
 				);
 			}
 
@@ -163,7 +165,7 @@ renderCreateEncounter = () => {
 	footerNav.append(prevBtn, nextBtn);
 };
 
-createRow = (info, title, secondary, index) => {
+createRow = (info, title, secondary, index, object) => {
 	let infoText;
 
 	if (pageIndex == 0) {
@@ -196,13 +198,19 @@ createRow = (info, title, secondary, index) => {
 
 	// TODO: collect info to add to encounter
 	selectionRow.addEventListener('click', function () {
-		console.log('click');
+		console.log('Before: ', stagedArr);
+
 		if (selectionRow.classList.contains('selected')) {
 			selectionRow.classList.remove('selected');
+			stagedArr.splice(
+				stagedArr.findIndex((e) => e.pcName === object.pcName),
+				1
+			);
 		} else {
 			selectionRow.classList.add('selected');
+			stagedArr.push(object);
 		}
-		// will collect information from this row and add to encounter
+		console.log('After: ', stagedArr);
 	});
 
 	selectionDiv.append(selectionRow);
