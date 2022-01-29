@@ -13,6 +13,7 @@ const footerNav = document.querySelector('#footer-navigation');
 // controls current page and what is displayed
 let pageIndex = 0;
 let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
+let stagedArr = [];
 
 if (storedPc == null) {
 	storedPc = [];
@@ -56,6 +57,11 @@ renderCreateEncounter = () => {
 
 	mainEl.appendChild(selectionDiv);
 
+	// updates storedPc array
+	storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
+	if (storedPc == null) {
+		storedPc = [];
+	}
 	// uses current pageIndex to dynamically change what is displayed
 	switch (pageIndex) {
 		case 0: // * pc's
@@ -63,15 +69,14 @@ renderCreateEncounter = () => {
 			addBtn.textContent = '+ add new PC';
 			addBtn.addEventListener('click', createNewPc);
 
-			// updates storedPc array
-			storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
-
 			// rows will dynamically update depending on saved/created/searched pc's/npc's/monsters
 			for (let i = 0; i < storedPc.length; i++) {
 				createRow(
 					storedPc[i].pcLevel,
 					storedPc[i].pcName,
-					storedPc[i].pcClass
+					storedPc[i].pcClass,
+					i, // this is used for dataset index
+					storedPc[i]
 				);
 			}
 
@@ -159,7 +164,7 @@ renderCreateEncounter = () => {
 	footerNav.append(prevBtn, nextBtn);
 };
 
-createRow = (info, title, secondary, initiative, index) => {
+createRow = (info, title, secondary, index, object) => {
 	let infoText;
 
 	if (pageIndex == 0) {
@@ -171,11 +176,11 @@ createRow = (info, title, secondary, initiative, index) => {
 	}
 
 	let row = `
-    <div class="player-level col-2 border bg-secondary d-flex flex-column justify-content-center align-items-center">
-        <p class="m-0">${infoText}</p>
-        <p class="m-0">${info}</p>
+    <div class="player-level col border bg-light d-flex flex-column justify-content-center align-items-center">
+        <p class="m-0 text-dark">${infoText}</p>
+        <p class="m-0 text-dark">${info}</p>
     </div>
-    <div class="row-title col-9 border-top border-bottom border-end d-flex align-items-center">
+    <div class="row-title col-9 border d-flex align-items-center">
         <div>
         <h5 class="m-0">${title}</h5>
         <p class="m-0">${secondary}</p>
@@ -186,14 +191,21 @@ createRow = (info, title, secondary, initiative, index) => {
 
 	let selectionDiv = document.querySelector('#selection-div');
 	let selectionRow = document.createElement('div');
-	selectionRow.classList.add('row', 'justify-content-center', 'my-3');
+	selectionRow.classList.add('row', 'justify-content-center', 'my-2');
 	selectionRow.dataset.index = index;
 	selectionRow.innerHTML += row;
 
-	// TODO: collect info to add to encounter
 	selectionRow.addEventListener('click', function () {
-		console.log('click');
-		// will collect information from this row and add to encounter
+		if (selectionRow.classList.contains('selected')) {
+			selectionRow.classList.remove('selected');
+			stagedArr.splice(
+				stagedArr.findIndex((e) => e.pcName === object.pcName),
+				1
+			);
+		} else {
+			selectionRow.classList.add('selected');
+			stagedArr.push(object);
+		}
 	});
 
 	selectionDiv.append(selectionRow);
@@ -291,20 +303,20 @@ createNewPc = () => {
             <label for="pcClassInput" class="form-label">PC Class:</label>
             <select class="form-select" id="pcClassInput" aria-label="Possible classes">
                 <option selected>Choose a class</option>
-                <option value="Barbarian">Barbarian</option>
-                <option value="Bard">Bard</option>
-                <option value="Cleric">Cleric</option>
-                <option value="Druid">Druid</option>
-                <option value="Fighter">Fighter</option>
-                <option value="Monk">Monk</option>
-                <option value="Paladin">Paladin</option>
-                <option value="Ranger">Ranger</option>
-                <option value="Rogue">Rogue</option>
-                <option value="Sorcerer">Sorcerer</option>
-                <option value="Warlock">Warlock</option>
-                <option value="Wizard">Wizard</option>
-                <option value="Artificer">Artificer</option>
-                <option value="Other">Other</option>
+                <option value="🪓 Barbarian"> 🪓 Barbarian</option>
+                <option value="🎼 Bard"> 🎼 Bard</option>
+                <option value="🙏 Cleric">🙏 Cleric</option>
+                <option value="🌱 Druid">🌱 Druid</option>
+                <option value="🤺 Fighter">🤺 Fighter</option>
+                <option value="👊 Monk">👊 Monk</option>
+                <option value="⛪ Paladin">⛪ Paladin</option>
+                <option value="🏹 Ranger">🏹 Ranger</option>
+                <option value="🔪 Rogue">🔪 Rogue</option>
+                <option value="🎇 Sorcerer">🎇 Sorcerer</option>
+                <option value="👿 Warlock">👿 Warlock</option>
+                <option value="📔 Wizard">📔 Wizard</option>
+                <option value="🔨 Artificer">🔨 Artificer</option>
+                <option value="❓ Other">❓ Other</option>
             </select>
         </div>
         <div class="mb-3">
