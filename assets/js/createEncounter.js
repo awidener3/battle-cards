@@ -60,11 +60,8 @@ export const createEncounter = () => {
 			break;
 
 		case 1: // * monsters
-			text.textContent = "Select your monster's";
-			addBtn.textContent = '+ add new monster';
-
-			createRow('??', 'MONSTER 1', 'type');
-
+			mainEl.textContent = '';
+			printMonsters();
 			break;
 
 		default:
@@ -337,4 +334,33 @@ const createNewPc = () => {
 	});
 
 	footerNav.append(addPcBtn, backBtn);
+};
+
+const printMonsters = () => {
+	let div = document.createElement('div');
+
+	let searchInputEl = `
+        <form>
+            <label for="monster-search" class="form-label">Search</label>
+            <input type="text" class="form-control mb-3" id="monster-search">
+            <a id="monster-search-btn" class="btn btn-primary btn-block">Search...</a>
+        </form>
+    `;
+
+	div.insertAdjacentHTML('beforeend', searchInputEl);
+
+	mainEl.append(div);
+
+	let searchBtn = document.querySelector('#monster-search-btn');
+	let searchInput = document.querySelector('#monster-search');
+
+	searchBtn.addEventListener('click', () => {
+		fetchMonsters(searchInput.value);
+	});
+};
+
+const fetchMonsters = (search) => {
+	fetch(`https://api.open5e.com/monsters/?search=${search}`)
+		.then((response) => response.json())
+		.then((data) => console.log(data));
 };
