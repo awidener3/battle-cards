@@ -35,3 +35,7 @@ footer {
 	font-weight: 700;
 	font-size: 1.2rem;
 }
+
+.selected {
+	outline: #39b623 solid 3px;
+}

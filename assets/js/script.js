@@ -65,13 +65,17 @@ renderCreateEncounter = () => {
 
 			// updates storedPc array
 			storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
+			if (storedPc == null) {
+				storedPc = [];
+			}
 
 			// rows will dynamically update depending on saved/created/searched pc's/npc's/monsters
 			for (let i = 0; i < storedPc.length; i++) {
 				createRow(
 					storedPc[i].pcLevel,
 					storedPc[i].pcName,
-					storedPc[i].pcClass
+					storedPc[i].pcClass,
+					i // this is used for dataset index
 				);
 			}
 
@@ -159,7 +163,7 @@ renderCreateEncounter = () => {
 	footerNav.append(prevBtn, nextBtn);
 };
 
-createRow = (info, title, secondary, initiative, index) => {
+createRow = (info, title, secondary, index) => {
 	let infoText;
 
 	if (pageIndex == 0) {
@@ -171,11 +175,11 @@ createRow = (info, title, secondary, initiative, index) => {
 	}
 
 	let row = `
-    <div class="player-level col-2 border bg-secondary d-flex flex-column justify-content-center align-items-center">
-        <p class="m-0">${infoText}</p>
-        <p class="m-0">${info}</p>
+    <div class="player-level col border bg-light d-flex flex-column justify-content-center align-items-center">
+        <p class="m-0 text-dark">${infoText}</p>
+        <p class="m-0 text-dark">${info}</p>
     </div>
-    <div class="row-title col-9 border-top border-bottom border-end d-flex align-items-center">
+    <div class="row-title col-9 border d-flex align-items-center">
         <div>
         <h5 class="m-0">${title}</h5>
         <p class="m-0">${secondary}</p>
@@ -186,13 +190,18 @@ createRow = (info, title, secondary, initiative, index) => {
 
 	let selectionDiv = document.querySelector('#selection-div');
 	let selectionRow = document.createElement('div');
-	selectionRow.classList.add('row', 'justify-content-center', 'my-3');
+	selectionRow.classList.add('row', 'justify-content-center', 'my-2');
 	selectionRow.dataset.index = index;
 	selectionRow.innerHTML += row;
 
 	// TODO: collect info to add to encounter
 	selectionRow.addEventListener('click', function () {
 		console.log('click');
+		if (selectionRow.classList.contains('selected')) {
+			selectionRow.classList.remove('selected');
+		} else {
+			selectionRow.classList.add('selected');
+		}
 		// will collect information from this row and add to encounter
 	});
 
