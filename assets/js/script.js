@@ -43,6 +43,7 @@ renderCreateEncounter = () => {
 	headerTitle.textContent = 'CREATE NEW ENCOUNTER';
 	let contentDiv = document.createElement('div');
 	let text = document.createElement('p');
+	text.classList.add('col-12');
 	let addBtn = document.createElement('button');
 	addBtn.classList.add('btn', 'btn-primary', 'btn-lg', 'col-12');
 
@@ -70,9 +71,7 @@ renderCreateEncounter = () => {
 				createRow(
 					storedPc[i].pcLevel,
 					storedPc[i].pcName,
-					storedPc[i].pcClass,
-					`Init ??`,
-					i
+					storedPc[i].pcClass
 				);
 			}
 
@@ -82,7 +81,7 @@ renderCreateEncounter = () => {
 			text.textContent = "Select your NPC's:";
 			addBtn.textContent = '+ add new NPC';
 
-			createRow('??', 'Saved NPC 1', '??');
+			createRow('??', 'Saved NPC 1');
 
 			break;
 
@@ -90,7 +89,7 @@ renderCreateEncounter = () => {
 			text.textContent = "Select your monster's";
 			addBtn.textContent = '+ add new monster';
 
-			createRow('??', 'MONSTER 1', '??');
+			createRow('??', 'MONSTER 1', 'type');
 
 			break;
 
@@ -176,15 +175,12 @@ createRow = (info, title, secondary, initiative, index) => {
         <p class="m-0">${infoText}</p>
         <p class="m-0">${info}</p>
     </div>
-    <div class="row-title col-7 border-top border-bottom d-flex align-items-center">
+    <div class="row-title col-9 border-top border-bottom border-end d-flex align-items-center">
         <div>
         <h5 class="m-0">${title}</h5>
         <p class="m-0">${secondary}</p>
         </div>
         <span class="close">x</span>
-    </div>
-    <div class="col-2 border bg-secondary">
-        <p>${initiative}</p>
     </div>
     `;
 
@@ -244,7 +240,7 @@ printSummary = () => {
 		// start encounter
 	});
 
-	// * difficulty meter
+	// difficulty meter
 	let difficultyMeter = document.createElement('div');
 	let meterText = document.createElement('p');
 	meterText.textContent = 'DIFFICULTY';
