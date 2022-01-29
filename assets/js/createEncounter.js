@@ -1,42 +1,21 @@
-// * DOM ELEMENTS
 const headerTitle = document.querySelector('#header-title');
 const mainEl = document.querySelector('main');
-const createEncounterBtn = document.querySelector('#create-encounter-btn');
-const savedEncounterBtn = document.querySelector('#saved-encounter-btn');
-const addPcBtn = document.querySelector('#add-pc-btn');
-const addNpcBtn = document.querySelector('#add-npc-btn');
-const addMonsterBtn = document.querySelector('#add-monster-btn');
-const homeBtn = document.querySelector('#home-btn');
 const footerNav = document.querySelector('#footer-navigation');
 
-// * GLOBAL VARIABLES
-// controls current page and what is displayed
 let pageIndex = 0;
-let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
 let stagedArr = [];
 
+let storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
 if (storedPc == null) {
 	storedPc = [];
 }
 
-// * CONSTRUCTORS
-
-class Pc {
-	constructor(pcName, pcClass, pcLevel) {
-		this.pcName = pcName;
-		this.pcClass = pcClass;
-		this.pcLevel = pcLevel;
-	}
-}
-
-// * FUNCTIONS
-
 // renders the create encounter section of the application
-renderCreateEncounter = () => {
+export const renderCreateEncounter = () => {
 	mainEl.textContent = '';
 
 	// pushes to summary page before adding any elements below
-	if (pageIndex > 2) {
+	if (pageIndex > 1) {
 		printSummary();
 		return;
 	}
@@ -82,15 +61,15 @@ renderCreateEncounter = () => {
 
 			break;
 
-		case 1: // * npc's
-			text.textContent = "Select your NPC's:";
-			addBtn.textContent = '+ add new NPC';
+		// case 1: // * npc's
+		// 	text.textContent = "Select your NPC's:";
+		// 	addBtn.textContent = '+ add new NPC';
 
-			createRow('??', 'Saved NPC 1');
+		// 	createRow('??', 'Saved NPC 1');
 
-			break;
+		// 	break;
 
-		case 2: // * monsters
+		case 1: // * monsters
 			text.textContent = "Select your monster's";
 			addBtn.textContent = '+ add new monster';
 
@@ -106,7 +85,9 @@ renderCreateEncounter = () => {
 	let closeBtns = document.querySelectorAll('.close');
 
 	for (let i = 0; i < closeBtns.length; i++) {
-		closeBtns[i].addEventListener('click', function () {
+		closeBtns[i].addEventListener('click', function (e) {
+			e.stopPropagation();
+
 			if (confirm('Are you sure you want to delete?')) {
 				// remove from page
 				this.parentElement.parentElement.remove();
@@ -164,7 +145,7 @@ renderCreateEncounter = () => {
 	footerNav.append(prevBtn, nextBtn);
 };
 
-createRow = (info, title, secondary, index, object) => {
+const createRow = (info, title, secondary, index, object) => {
 	let infoText;
 
 	if (pageIndex == 0) {
@@ -213,7 +194,7 @@ createRow = (info, title, secondary, index, object) => {
 	mainEl.append(selectionDiv);
 };
 
-printSummary = () => {
+const printSummary = () => {
 	headerTitle.textContent = 'ENCOUNTER SUMMARY';
 
 	// main content
@@ -288,7 +269,7 @@ printSummary = () => {
 	footerNav.append(saveBtn, runBtn, difficultyMeter, prevBtn, clearBtn);
 };
 
-createNewPc = () => {
+const createNewPc = () => {
 	mainEl.textContent = '';
 	footerNav.textContent = '';
 	headerTitle.textContent = 'CREATE NEW PC';
@@ -374,10 +355,3 @@ createNewPc = () => {
 
 	footerNav.append(addPcBtn, backBtn);
 };
-
-// * EVENT LISTENERS
-createEncounterBtn.addEventListener('click', renderCreateEncounter);
-
-homeBtn.addEventListener('click', function () {
-	location.reload();
-});
