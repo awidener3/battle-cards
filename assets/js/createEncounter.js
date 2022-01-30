@@ -70,7 +70,7 @@ export const createEncounter = () => {
 
 		case 1: // * monsters
 			text.textContent = 'Select your Monsters:';
-			addBtn.textContent = '+ search for a monster';
+			addBtn.textContent = '🔍 search for a monster';
 			addBtn.addEventListener('click', searchMonster);
 
 			printMonsters();
