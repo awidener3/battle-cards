@@ -1,4 +1,5 @@
 import { createEncounter } from './createEncounter.js';
+import { createNewPc } from './selectPc.js';
 
 // * DOM ELEMENTS
 const createEncounterBtn = document.querySelector('#create-encounter-btn');
@@ -14,4 +15,8 @@ createEncounterBtn.addEventListener('click', createEncounter);
 
 homeBtn.addEventListener('click', function () {
 	location.reload();
+});
+
+addPcBtn.addEventListener('click', () => {
+	createNewPc();
 });

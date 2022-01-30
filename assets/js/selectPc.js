@@ -159,6 +159,8 @@ export const createNewPc = () => {
 	addPcBtn.textContent = 'Add PC';
 	addPcBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-12');
 	addPcBtn.addEventListener('click', function () {
+		storedPc = checkStoredPc();
+
 		let pcName = document.querySelector('#pcNameInput').value;
 		let pcClass = document.querySelector('#pcClassInput').value;
 		let pcLevel = document.querySelector('#pcLevelInput').value;
