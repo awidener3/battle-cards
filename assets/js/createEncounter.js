@@ -150,7 +150,7 @@ const printSummary = () => {
 
 	let monDiv = document.createElement('div');
 	let monHeader = document.createElement('h4');
-	monHeader.textContent = "monsters's:";
+	monHeader.textContent = 'Monsters:';
 	monDiv.append(monHeader);
 
 	let monUl = document.createElement('ul');
