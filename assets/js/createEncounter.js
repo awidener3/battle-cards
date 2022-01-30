@@ -51,7 +51,7 @@ export const createEncounter = () => {
 			addBtn.addEventListener('click', createNewPc);
 
 			for (let i = 0; i < storedPc.length; i++) {
-				createRow(
+				createCharacterRow(
 					storedPc[i],
 					i // this is used for dataset index
 				);
@@ -132,15 +132,12 @@ export const createEncounter = () => {
 	footerNav.append(prevBtn, nextBtn);
 };
 
-const createRow = (object, index) => {
+const createCharacterRow = (object, index) => {
 	let selectionDiv = document.querySelector('#selection-div');
-	let infoText;
-
-	pageIndex === 0 ? (infoText = 'Lvl') : (infoText = '#');
 
 	let row = `
         <div class="player-level col border bg-light d-flex flex-column justify-content-center align-items-center">
-            <p class="m-0 text-dark">${infoText}</p>
+            <p class="m-0 text-dark">Lvl</p>
             <p class="m-0 text-dark">${object.pcLevel}</p>
         </div>
         <div class="row-title col-9 border d-flex align-items-center">
@@ -337,19 +334,27 @@ const createNewPc = () => {
 };
 
 const printMonsters = () => {
+	// container to contain monster search
 	let div = document.createElement('div');
 
 	let searchInputEl = `
-        <form>
-            <label for="monster-search" class="form-label">Search</label>
-            <input type="text" class="form-control mb-3" id="monster-search">
-            <a id="monster-search-btn" class="btn btn-primary btn-block">Search...</a>
-        </form>
+    <form>
+    <label for="monster-search" class="form-label">Search</label>
+    <input type="text" class="form-control mb-3" id="monster-search">
+    <a id="monster-search-btn" class="btn btn-primary btn-block">Search...</a>
+    </form>
     `;
 
 	div.insertAdjacentHTML('beforeend', searchInputEl);
 
 	mainEl.append(div);
+
+	// container to hold monster results
+	let monsterDiv = document.createElement('div');
+	monsterDiv.classList.add('container', 'mt-4');
+	monsterDiv.setAttribute('id', 'monster-div');
+
+	mainEl.appendChild(monsterDiv);
 
 	let searchBtn = document.querySelector('#monster-search-btn');
 	let searchInput = document.querySelector('#monster-search');
@@ -359,8 +364,55 @@ const printMonsters = () => {
 	});
 };
 
+// calls the Open5e API
 const fetchMonsters = (search) => {
 	fetch(`https://api.open5e.com/monsters/?search=${search}`)
 		.then((response) => response.json())
-		.then((data) => console.log(data));
+		.then((data) => {
+			// console.log(data.results);
+			for (let i = 0; i < data.results.length; i++) {
+				createMonsterRow(data.results[i]);
+			}
+		});
+};
+
+const createMonsterRow = (monster) => {
+	console.log(monster);
+	let monsterDiv = document.querySelector('#monster-div');
+
+	let row = `
+	    <div class="enemy-number col border bg-light d-flex flex-column justify-content-center align-items-center">
+            <form>
+                <label for="monster-num" class="form-label">#</label>
+                <input type="number" id="monster-num" class="form-control">
+            </form>
+	    </div>
+	    <div class="row-title col-9 border d-flex align-items-center">
+	        <div>
+	        <h5 class="m-0">${monster.name}</h5>
+	        <p class="m-0">${monster.subtype}</p>
+	        </div>
+	        <span class="close">x</span>
+	    </div>
+	`;
+
+	let div = document.createElement('div');
+	div.classList.add('row', 'justify-content-center', 'my-2');
+	div.insertAdjacentHTML('beforeend', row);
+
+	// // stages a character for the encounter
+	// div.addEventListener('click', function () {
+	// 	if (div.classList.contains('selected')) {
+	// 		div.classList.remove('selected');
+	// 		stagedArr.splice(
+	// 			stagedArr.findIndex((e) => e.pcName === object.pcName),
+	// 			1
+	// 		);
+	// 	} else {
+	// 		div.classList.add('selected');
+	// 		stagedArr.push(object);
+	// 	}
+	// });
+
+	monsterDiv.append(div);
 };
