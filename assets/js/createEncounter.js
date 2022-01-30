@@ -6,24 +6,21 @@ const mainEl = document.querySelector('main');
 const footerNav = document.querySelector('#footer-navigation');
 
 let pageIndex = 0;
-// let stagedMon = [];
-let storedPc = [];
-let storedMonster = [];
+let storedPc;
+let storedMonster;
 
-export const checkStoredPc = () => {
-	storedPc = JSON.parse(localStorage.getItem('playerCharacter'));
-	if (storedPc == null) {
-		storedPc = [];
-	}
+export const updateStoredPc = () => {
+	storedPc !== null
+		? (storedPc = JSON.parse(localStorage.getItem('playerCharacter')))
+		: (storedPc = []);
 
 	return storedPc;
 };
 
-export const checkStoredMonster = () => {
-	storedMonster = JSON.parse(localStorage.getItem('savedMonster'));
-	if (storedMonster == null) {
-		storedMonster = [];
-	}
+export const updateStoredMonster = () => {
+	storedMonster !== null
+		? (storedMonster = JSON.parse(localStorage.getItem('savedMonster')))
+		: (storedMonster = []);
 
 	return storedMonster;
 };
@@ -54,8 +51,8 @@ export const createEncounter = () => {
 
 	mainEl.appendChild(selectionDiv);
 
-	checkStoredPc();
-	checkStoredMonster();
+	updateStoredPc();
+	updateStoredMonster();
 
 	// uses current pageIndex to dynamically change what is displayed
 	switch (pageIndex) {
@@ -124,8 +121,8 @@ export const createEncounter = () => {
 // ! ####### SUMMARY #######
 
 const printSummary = () => {
-	storedPc = checkStoredPc();
-	storedMonster = checkStoredMonster();
+	storedPc = updateStoredPc();
+	storedMonster = updateStoredMonster();
 
 	headerTitle.textContent = 'ENCOUNTER SUMMARY';
 

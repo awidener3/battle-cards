@@ -1,5 +1,5 @@
-import { Monster } from './monster.js';
-import { createEncounter, checkStoredMonster } from './createEncounter.js';
+import { Monster } from './classes/monster.js';
+import { createEncounter, updateStoredMonster } from './createEncounter.js';
 
 const mainEl = document.querySelector('main');
 const footerNav = document.querySelector('#footer-navigation');
@@ -11,7 +11,7 @@ let stagedMon = [];
 // ? ####### MAIN PAGE ########
 // prints the main page for searching and selecting monsters
 export const printMonsters = () => {
-	storedMonster = checkStoredMonster();
+	storedMonster = updateStoredMonster();
 
 	for (let i = 0; i < storedMonster.length; i++) {
 		createMonsterRow(storedMonster[i], i);

@@ -1,5 +1,5 @@
-import { Pc } from './pc.js';
-import { createEncounter, checkStoredPc } from './createEncounter.js';
+import { Pc } from './classes/pc.js';
+import { createEncounter, updateStoredPc } from './createEncounter.js';
 
 const mainEl = document.querySelector('main');
 const footerNav = document.querySelector('#footer-navigation');
@@ -11,7 +11,7 @@ let stagedArr = [];
 // ? ####### MAIN PAGE ########
 
 export const printPc = () => {
-	storedPc = checkStoredPc();
+	storedPc = updateStoredPc();
 
 	for (let i = 0; i < storedPc.length; i++) {
 		createCharacterRow(
@@ -24,18 +24,16 @@ export const printPc = () => {
 	let closeBtns = document.querySelectorAll('.close');
 
 	for (let i = 0; i < closeBtns.length; i++) {
-		closeBtns[i].addEventListener('click', function (e) {
+		closeBtns[i].addEventListener('click', (e) => {
 			e.stopPropagation();
 
 			if (confirm('Are you sure you want to delete?')) {
-				// remove from page
-				this.parentElement.parentElement.remove();
-				// remove from local storage
+				this.parentElement.parentElement.remove(); //remove from page
 				let index = this.parentElement.parentElement.dataset.index;
 				let pcArray = JSON.parse(
 					localStorage.getItem('playerCharacter')
 				);
-				pcArray.splice(index, 1);
+				pcArray.splice(index, 1); // remove from local storage
 				localStorage.setItem(
 					'playerCharacter',
 					JSON.stringify(pcArray)
@@ -46,7 +44,7 @@ export const printPc = () => {
 };
 
 const createCharacterRow = (object, index) => {
-	let selectionDiv = document.querySelector('#selection-div');
+	const selectionDiv = document.querySelector('#selection-div');
 
 	let row = `
         <div class="player-level col border bg-light d-flex flex-column justify-content-center align-items-center">
@@ -148,18 +146,11 @@ export const createNewPc = () => {
 
 	mainEl.innerHTML = form;
 
-	let backBtn = document.createElement('button');
-	backBtn.textContent = 'Back';
-	backBtn.classList.add('btn', 'btn-secondary', 'btn-lg', 'mb-2', 'col-12');
-	backBtn.addEventListener('click', function () {
-		createEncounter();
-	});
-
 	let addPcBtn = document.createElement('button');
 	addPcBtn.textContent = 'Add PC';
 	addPcBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-12');
 	addPcBtn.addEventListener('click', function () {
-		storedPc = checkStoredPc();
+		storedPc = updateStoredPc();
 
 		let pcName = document.querySelector('#pcNameInput').value;
 		let pcClass = document.querySelector('#pcClassInput').value;
@@ -169,6 +160,13 @@ export const createNewPc = () => {
 		storedPc.push(player);
 		localStorage.setItem('playerCharacter', JSON.stringify(storedPc));
 
+		createEncounter();
+	});
+
+	let backBtn = document.createElement('button');
+	backBtn.textContent = 'Back';
+	backBtn.classList.add('btn', 'btn-secondary', 'btn-lg', 'mb-2', 'col-12');
+	backBtn.addEventListener('click', function () {
 		createEncounter();
 	});
 
