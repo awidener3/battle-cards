@@ -65,6 +65,10 @@ const createMonsterRow = (monster, index) => {
 	div.insertAdjacentHTML('beforeend', row);
 
 	selectionDiv.append(div);
+
+	let numberInput = document.querySelector('#monster-num');
+
+	numberInput.addEventListener('change', console.log(numberInput.value));
 };
 
 // ? ####### SEARCH ########

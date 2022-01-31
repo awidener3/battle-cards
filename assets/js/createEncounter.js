@@ -8,7 +8,9 @@ const footerNav = document.querySelector('#footer-navigation');
 let pageIndex = 0;
 let storedPc;
 let storedMonster;
+let stagedPc = [];
 
+// updateStoredPc grabs pcs stored in local storage
 export const updateStoredPc = () => {
 	storedPc !== null
 		? (storedPc = JSON.parse(localStorage.getItem('playerCharacter')))
@@ -142,8 +144,6 @@ const printSummary = () => {
 		pcUl.append(li);
 	});
 	pcDiv.append(pcUl);
-
-	// -----------------------------------------
 
 	let monDiv = document.createElement('div');
 	let monHeader = document.createElement('h4');
