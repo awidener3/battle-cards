@@ -1,4 +1,4 @@
-import { printPc, createNewPc, updateStoredPc } from './selectPc.js';
+import { printPc, updateStoredPc } from './selectPc.js';
 import { printMonsters, searchMonster } from './selectMonster.js';
 
 const headerTitle = document.querySelector('#header-title')
@@ -29,7 +29,9 @@ export const renderContent = () => {
 		case 0:
 			pageText.textContent = "Select your PC's:";
 			searchAddBtn.textContent = 'add new PC';
-			searchAddBtn.addEventListener('click', createNewPc);
+			searchAddBtn.addEventListener('click', () => {
+				location.pathname = '/create-player.html'
+			});
 			printPc();
 
 			break;
