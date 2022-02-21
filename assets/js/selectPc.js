@@ -1,10 +1,4 @@
-import { Pc } from './classes/pc.js';
-import { renderContent } from './createEncounter.js';
-
 const selectionDiv = document.querySelector('#page-selections');
-const mainEl = document.querySelector('main');
-const footerNav = document.querySelector('#footer-navigation');
-const headerTitle = document.querySelector('#header-title');
 
 let storedPc;
 let stagedArr = [];
@@ -18,10 +12,7 @@ export const updateStoredPc = () => {
 };
 
 export const printPc = () => {
-	console.log('Before update', storedPc);
 	updateStoredPc();
-	console.log('After update', storedPc);
-	
 
 	for (let i = 0; i < storedPc.length; i++) {
 		createCharacterRow(
@@ -88,95 +79,4 @@ const createCharacterRow = (object, index) => {
 	});
 
 	selectionDiv.append(div);
-};
-
-// Creates pc
-export const createNewPc = () => {
-	mainEl.textContent = '';
-	footerNav.textContent = '';
-	headerTitle.textContent = 'CREATE NEW PC';
-
-	let form = `
-    <form autocomplete="off">
-        <div class="mb-3">
-            <label for="pcNameInput" class="form-label">PC Name:</label>
-            <input type=text class="form-control" id="pcNameInput" placeholder="Type a name...">
-        </div>
-        <div class="mb-3">
-            <label for="pcClassInput" class="form-label">PC Class:</label>
-            <select class="form-select" id="pcClassInput" aria-label="Possible classes">
-                <option selected>Choose a class</option>
-                <option value="🪓 Barbarian"> 🪓 Barbarian</option>
-                <option value="🎼 Bard"> 🎼 Bard</option>
-                <option value="🙏 Cleric">🙏 Cleric</option>
-                <option value="🌱 Druid">🌱 Druid</option>
-                <option value="🤺 Fighter">🤺 Fighter</option>
-                <option value="👊 Monk">👊 Monk</option>
-                <option value="⛪ Paladin">⛪ Paladin</option>
-                <option value="🏹 Ranger">🏹 Ranger</option>
-                <option value="🔪 Rogue">🔪 Rogue</option>
-                <option value="🎇 Sorcerer">🎇 Sorcerer</option>
-                <option value="👿 Warlock">👿 Warlock</option>
-                <option value="📔 Wizard">📔 Wizard</option>
-                <option value="🔨 Artificer">🔨 Artificer</option>
-                <option value="❓ Other">❓ Other</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for"pcLevelInput" class"form-label">PC Level:</label>
-            <select class="form-select" id="pcLevelInput" aria-label="PC Level">
-                <option selected>Choose a level</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-            </select>
-        </div>
-    </form>
-    `;
-
-	mainEl.innerHTML = form;
-
-	let addPcBtn = document.createElement('button');
-	addPcBtn.textContent = 'Add PC';
-	addPcBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-12');
-	addPcBtn.addEventListener('click', function () {
-		// storedPc = updateStoredPc();
-		updateStoredPc();
-
-		let pcName = document.querySelector('#pcNameInput').value;
-		let pcClass = document.querySelector('#pcClassInput').value;
-		let pcLevel = document.querySelector('#pcLevelInput').value;
-
-		const player = new Pc(pcName, pcClass, pcLevel);
-		storedPc.push(player);
-		localStorage.setItem('playerCharacter', JSON.stringify(storedPc));
-
-		renderContent();
-	});
-
-	let backBtn = document.createElement('button');
-	backBtn.textContent = 'Back';
-	backBtn.classList.add('btn', 'btn-secondary', 'btn-lg', 'mb-2', 'col-12');
-	backBtn.addEventListener('click', function () {
-		renderContent();
-	});
-
-	footerNav.append(addPcBtn, backBtn);
 };
