@@ -1,9 +1,10 @@
 import { printPc, updateStoredPc } from './selectPc.js';
 import { printMonsters, searchMonster } from './selectMonster.js';
 
-const headerTitle = document.querySelector('#header-title')
+const headerTitle = document.querySelector('#header-title');
 const pageText = document.querySelector('#page-text');
 const searchAddBtn = document.querySelector('#search-add-btn');
+const contentContainer = document.querySelector('#page-selections');
 const nextBtn = document.querySelector('#next-btn');
 const backBtn = document.querySelector('#back-btn');
 
@@ -30,8 +31,10 @@ export const renderContent = () => {
 			pageText.textContent = "Select your PC's:";
 			searchAddBtn.textContent = 'add new PC';
 			searchAddBtn.addEventListener('click', () => {
-				location.pathname = '/create-player.html'
+				location.pathname = '/html/create-player.html';
 			});
+			// Clear content
+			contentContainer.textContent = '';
 			printPc();
 
 			break;
@@ -40,6 +43,10 @@ export const renderContent = () => {
 			pageText.textContent = 'Select your Monsters:';
 			searchAddBtn.textContent = 'search monsters';
 			searchAddBtn.addEventListener('click', searchMonster);
+
+			// Clear content
+			contentContainer.textContent = '';
+
 			// printMonsters();
 
 			break;
