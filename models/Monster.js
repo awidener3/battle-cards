@@ -136,6 +136,7 @@ Monster.init(
 	{
 		sequelize,
 		underscored: true,
+		freezeTableName: true,
 		modelName: 'monster',
 	}
 );

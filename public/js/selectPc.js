@@ -1,7 +1,7 @@
 const selectPcBtn = document.querySelectorAll('.select-pc-btn');
 const stagedPc = [];
 
-const selectPcHandler = async (e) => {
+const handleSelectPc = async (e) => {
 	if (e.target.parentElement.hasAttribute('data-id')) {
 		const id = e.target.parentElement.getAttribute('data-id');
 
@@ -20,5 +20,5 @@ const selectPcHandler = async (e) => {
 };
 
 selectPcBtn.forEach((btn) => {
-	btn.addEventListener('click', selectPcHandler);
+	btn.addEventListener('click', handleSelectPc);
 });

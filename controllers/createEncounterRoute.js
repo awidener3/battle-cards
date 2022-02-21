@@ -1,7 +1,9 @@
 const router = require('express').Router();
-const { Pc } = require('../models');
+const { Pc, Monster } = require('../models');
 
-// Get all saved PC's
+//* /create-encounter
+
+// Render select-pc endpoint
 router.get('/select-pc', async (req, res) => {
 	const pcData = await Pc.findAll();
 	// serialize data
@@ -9,6 +11,17 @@ router.get('/select-pc', async (req, res) => {
 
 	res.render('select-pc', {
 		pcs,
+	});
+});
+
+// Render select-monsters endpoint
+router.get('/select-monster', async (req, res) => {
+	const monsterData = await Monster.findAll();
+	// serialize data
+	const monsters = monsterData.map((monster) => monster.get({ plain: true }));
+
+	res.render('select-monster', {
+		monsters,
 	});
 });
 
