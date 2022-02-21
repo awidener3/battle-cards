@@ -1,87 +1,24 @@
-const pcContainer = document.querySelector('#pc-container');
-const addBtn = document.querySelector('#add-btn');
-const nextBtn = document.querySelector('#next-btn');
-const backBtn = document.querySelector('#back-btn');
+const selectPcBtn = document.querySelectorAll('.select-pc-btn');
+const stagedPc = [];
 
-let storedPc = [];
-let stagedArr = [];
+const selectPcHandler = async (e) => {
+	if (e.target.parentElement.hasAttribute('data-id')) {
+		const id = e.target.parentElement.getAttribute('data-id');
 
-const updateStoredPc = () => {
-	if (storedPc !== null) {
-		storedPc = JSON.parse(localStorage.getItem('storedCharacter'));
-	} else {
-		storedPc = [];
-	}
-};
+		e.target.classList.toggle('btn-success');
 
-const printPc = () => {
-	updateStoredPc();
-
-	for (let i = 0; i < storedPc.length; i++) {
-		createCharacterRow(
-			storedPc[i],
-			i // this is used for dataset index
-		);
-	}
-
-	// handles close button on each row
-	let closeBtns = document.querySelectorAll('.close');
-
-	for (let i = 0; i < closeBtns.length; i++) {
-		closeBtns[i].addEventListener('click', (e) => {
-			e.stopPropagation();
-
-			if (confirm('Are you sure you want to delete?')) {
-				this.parentElement.parentElement.remove(); //remove from page
-				let index = this.parentElement.parentElement.dataset.index;
-				let pcArray = JSON.parse(
-					localStorage.getItem('storedCharacter')
-				);
-				pcArray.splice(index, 1); // remove from local storage
-				localStorage.setItem(
-					'storedCharacter',
-					JSON.stringify(pcArray)
-				);
-			}
-		});
-	}
-};
-
-const createCharacterRow = (object, index) => {
-	let row = `
-        <div class="player-level col border bg-light d-flex flex-column justify-content-center align-items-center">
-            <p class="m-0 text-dark">Lvl</p>
-            <p class="m-0 text-dark">${object.pcLevel}</p>
-        </div>
-        <div class="row-title col-9 border d-flex align-items-center">
-            <div>
-            <h5 class="m-0">${object.pcName}</h5>
-            <p class="m-0">${object.pcClass}</p>
-            </div>
-            <span class="close">x</span>
-        </div>
-	`;
-
-	let div = document.createElement('div');
-	div.classList.add('row', 'justify-content-center', 'my-2');
-	div.dataset.index = index;
-	div.insertAdjacentHTML('beforeend', row);
-
-	// stages a character for the encounter
-	div.addEventListener('click', function () {
-		if (div.classList.contains('selected')) {
-			div.classList.remove('selected');
-			stagedArr.splice(
-				stagedArr.findIndex((e) => e.pcName === object.pcName),
-				1
-			);
+		if (e.target.classList.contains('btn-success')) {
+			e.target.textContent = '✓';
+			stagedPc.push(id);
 		} else {
-			div.classList.add('selected');
-			stagedArr.push(object);
-		}
-	});
+			e.target.textContent = '+';
 
-	pcContainer.append(div);
+			let index = stagedPc.indexOf(id);
+			stagedPc.splice(index, 1);
+		}
+	}
 };
 
-printPc();
+selectPcBtn.forEach((btn) => {
+	btn.addEventListener('click', selectPcHandler);
+});

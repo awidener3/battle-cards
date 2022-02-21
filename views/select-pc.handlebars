@@ -1,9 +1,29 @@
-<div id="page-header" class="col-12 col-sm-6 mb-5 mx-auto">
+{{!-- Top text --}}
+<div id="page-header" class="col-12 col-sm-6 mb-4 mx-auto">
     <p id="page-text" class="col-12">Select your PC's:</p>
     <button id="add-btn" class="btn btn-primary">add new PC</button>
 </div>
-<div id="pc-container" class="mt-4 container">
 
+{{!-- PC container --}}
+<div id="pc-container" class="mt-4 container col-12 col-sm-6 mb-4 mx-auto">
+    <h3>Your Saved PC's</h3>
+    {{#each pcs as |pc|}}
+
+    <div class="d-flex my-2" data-id="{{pc.id}}">
+        <button class="select-pc-btn btn btn-secondary btn-sq-sm mx-auto my-auto">+</button>
+        <div class="border d-flex col ms-3 px-3 py-1 justify-content-between align-items-center">
+            <div>
+                <div class="d-flex">
+                    <h5 class="m-0 me-2">{{pc.character_name}}</h5>
+                    <p class="text-muted mb-0">({{pc.player_name}})</p>
+                </div>
+                <p class="m-0">{{pc.class}}</p>
+            </div>
+            <p class="m-0">Lvl {{pc.level}}</p>
+        </div>
+    </div>
+
+    {{/each}}
 </div>
 
 {{!-- Navigation --}}
@@ -14,9 +34,8 @@
                 <p id="difficulty-meter-text" class="text-center m-0">DIFFICULTY</p>
             </div>
             <div id="nav-btns" class="btn-group col-12">
-                <button id="back-btn" class="btn btn-secondary col-5 mx-1">
-                    << back</button>
-                        <button id="next-btn" class="btn btn-secondary col-5 mx-1"> next >></button>
+                <a href="/" id="back-btn" class="btn btn-secondary col-5 mx-1">home</a>
+                <a href="/create-encounter/select-monster" id="next-btn" class="btn btn-secondary col-5 mx-1"> next >></a>
             </div>
         </div>
     </div>
