@@ -1,15 +1,27 @@
 import { Pc } from './classes/pc.js';
-import { renderContent, updateStoredPc } from './createEncounter.js';
+import { renderContent } from './createEncounter.js';
 
+const selectionDiv = document.querySelector('#page-selections');
 const mainEl = document.querySelector('main');
 const footerNav = document.querySelector('#footer-navigation');
 const headerTitle = document.querySelector('#header-title');
 
-let storedPc = [];
+let storedPc;
 let stagedArr = [];
 
+export const updateStoredPc = () => {
+	if (storedPc !== null) {
+		storedPc = JSON.parse(localStorage.getItem('playerCharacter'))
+	} else {
+		storedPc = [];
+	}
+};
+
 export const printPc = () => {
-	storedPc = updateStoredPc();
+	console.log('Before update', storedPc);
+	updateStoredPc();
+	console.log('After update', storedPc);
+	
 
 	for (let i = 0; i < storedPc.length; i++) {
 		createCharacterRow(
@@ -42,8 +54,6 @@ export const printPc = () => {
 };
 
 const createCharacterRow = (object, index) => {
-	const selectionDiv = document.querySelector('#selection-div');
-
 	let row = `
         <div class="player-level col border bg-light d-flex flex-column justify-content-center align-items-center">
             <p class="m-0 text-dark">Lvl</p>
@@ -147,7 +157,8 @@ export const createNewPc = () => {
 	addPcBtn.textContent = 'Add PC';
 	addPcBtn.classList.add('btn', 'btn-success', 'btn-lg', 'mb-1', 'col-12');
 	addPcBtn.addEventListener('click', function () {
-		storedPc = updateStoredPc();
+		// storedPc = updateStoredPc();
+		updateStoredPc();
 
 		let pcName = document.querySelector('#pcNameInput').value;
 		let pcClass = document.querySelector('#pcClassInput').value;
@@ -157,14 +168,14 @@ export const createNewPc = () => {
 		storedPc.push(player);
 		localStorage.setItem('playerCharacter', JSON.stringify(storedPc));
 
-		createEncounter();
+		renderContent();
 	});
 
 	let backBtn = document.createElement('button');
 	backBtn.textContent = 'Back';
 	backBtn.classList.add('btn', 'btn-secondary', 'btn-lg', 'mb-2', 'col-12');
 	backBtn.addEventListener('click', function () {
-		createEncounter();
+		renderContent();
 	});
 
 	footerNav.append(addPcBtn, backBtn);
