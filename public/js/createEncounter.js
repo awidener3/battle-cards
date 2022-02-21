@@ -1,5 +1,5 @@
 import { printPc, updateStoredPc } from './selectPc.js';
-import { printMonsters, searchMonster } from './selectMonster.js';
+import { printMonsters } from './selectMonster.js';
 
 const headerTitle = document.querySelector('#header-title');
 const pageText = document.querySelector('#page-text');
@@ -42,7 +42,7 @@ export const renderContent = () => {
 		case 1:
 			pageText.textContent = 'Select your Monsters:';
 			searchAddBtn.textContent = 'search monsters';
-			searchAddBtn.addEventListener('click', searchMonster);
+			// searchAddBtn.addEventListener('click', searchMonster);
 
 			// Clear content
 			contentContainer.textContent = '';

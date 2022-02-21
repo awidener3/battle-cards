@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
-	res.render('create-encounter');
+router.get('/select-pc', (req, res) => {
+	res.render('select-pc');
 });
 
 module.exports = router;

@@ -9,63 +9,63 @@
     <link rel="stylesheet" href="/css/style.css">
     <title>Battle-Cards</title>
 </head>
-<body>
-    {{!-- Nav --}}
-    <header class="position-relative">
-        <a href="https://github.com/awidener3/battle-cards" class="position-absolute top-0 end-0 pe-2" target="_blank">Version 1.0</a>
-        <div class="container-fluid text-center border-bottom p-3">
-            <a href="/" class="display-5 text-reset text-decoration-none"><i class="fa fa-dragon fa-flip-horizontal"></i> Battle Cards <i class="fa fa-dragon"></i></a>
-        </div>
-    </header>
+<body class="d-flex flex-column min-vh-100">
+        {{!-- Nav --}}
+        <header class="position-relative">
+            <a href="https://github.com/awidener3/battle-cards" class="position-absolute top-0 end-0 pe-2" target="_blank">Version 1.0</a>
+            <div class="container-fluid text-center border-bottom p-3">
+                <a href="/" class="display-5 text-reset text-decoration-none"><i class="fa fa-dragon fa-flip-horizontal"></i> Battle Cards <i class="fa fa-dragon"></i></a>
+            </div>
+        </header>
 
-    {{!-- Main Content --}}
-    <main class="container p-3">
-        {{{ body }}}
-    </main>
+        {{!-- Main Content --}}
+        <main class="d-flex flex-column container p-3 flex-grow-1 mb-3">
+            {{{ body }}}
+        </main>
 
-    {{!-- Footer --}}
-    <footer class="text-center text-white fixed-bottom" style="background-color: #f1f1f1;">
-        <div class="container pt-1">
-            <!-- Section: Social media -->
-            <section class="mb-1">
+        {{!-- Footer --}}
+        <footer class="text-center text-white" style="background-color: #f1f1f1;">
+            <div class="container pt-1">
+                <!-- Section: Social media -->
+                <section class="mb-1">
 
-            <!-- Twitter -->
-            <a
-                class="btn btn-link btn-floating btn-lg text-dark m-1"
-                href="https://twitter.com/awidener3"
-                role="button"
-                data-mdb-ripple-color="dark"
-                target="_blank"
-                ><i class="fab fa-twitter"></i
-            ></a>
-            <!-- Linkedin -->
-            <a
-                class="btn btn-link btn-floating btn-lg text-dark m-1"
-                href="https://www.linkedin.com/in/alex-widener/"
-                role="button"
-                data-mdb-ripple-color="dark" 
-                target="_blank"
-                ><i class="fab fa-linkedin"></i
-            ></a>
-            <!-- Github -->
-            <a
-                class="btn btn-link btn-floating btn-lg text-dark m-1"
-                href="https://github.com/awidener3"
-                role="button"
-                data-mdb-ripple-color="dark"
-                target="_blank"
-                ><i class="fab fa-github"></i
-            ></a>
-            </section>
-            <!-- Section: Social media -->
-        </div>
+                <!-- Twitter -->
+                <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="https://twitter.com/awidener3"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    target="_blank"
+                    ><i class="fab fa-twitter"></i
+                ></a>
+                <!-- Linkedin -->
+                <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="https://www.linkedin.com/in/alex-widener/"
+                    role="button"
+                    data-mdb-ripple-color="dark" 
+                    target="_blank"
+                    ><i class="fab fa-linkedin"></i
+                ></a>
+                <!-- Github -->
+                <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="https://github.com/awidener3"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    target="_blank"
+                    ><i class="fab fa-github"></i
+                ></a>
+                </section>
+                <!-- Section: Social media -->
+            </div>
 
-        <!-- Copyright -->
-        <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2020 Copyright:
-            <a class="text-dark" href="https://github.com/awidener3" target="_blank">Alex Widener</a>
-        </div>
-    </footer>
+            <!-- Copyright -->
+            <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2020 Copyright:
+                <a class="text-dark" href="https://github.com/awidener3" target="_blank">Alex Widener</a>
+            </div>
+        </footer>
 
     <script src="https://kit.fontawesome.com/d0626beaa2.js" crossorigin="anonymous"></script>
 </body>

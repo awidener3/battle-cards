@@ -1,17 +1,20 @@
-const selectionDiv = document.querySelector('#page-selections');
+const pcContainer = document.querySelector('#pc-container');
+const addBtn = document.querySelector('#add-btn');
+const nextBtn = document.querySelector('#next-btn');
+const backBtn = document.querySelector('#back-btn');
 
-let storedPc;
+let storedPc = [];
 let stagedArr = [];
 
-export const updateStoredPc = () => {
+const updateStoredPc = () => {
 	if (storedPc !== null) {
-		storedPc = JSON.parse(localStorage.getItem('playerCharacter'))
+		storedPc = JSON.parse(localStorage.getItem('storedCharacter'));
 	} else {
 		storedPc = [];
 	}
 };
 
-export const printPc = () => {
+const printPc = () => {
 	updateStoredPc();
 
 	for (let i = 0; i < storedPc.length; i++) {
@@ -32,11 +35,11 @@ export const printPc = () => {
 				this.parentElement.parentElement.remove(); //remove from page
 				let index = this.parentElement.parentElement.dataset.index;
 				let pcArray = JSON.parse(
-					localStorage.getItem('playerCharacter')
+					localStorage.getItem('storedCharacter')
 				);
 				pcArray.splice(index, 1); // remove from local storage
 				localStorage.setItem(
-					'playerCharacter',
+					'storedCharacter',
 					JSON.stringify(pcArray)
 				);
 			}
@@ -78,5 +81,7 @@ const createCharacterRow = (object, index) => {
 		}
 	});
 
-	selectionDiv.append(div);
+	pcContainer.append(div);
 };
+
+printPc();
