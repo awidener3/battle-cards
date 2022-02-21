@@ -1,0 +1,32 @@
+[
+	{
+		"player_name": "Alex",
+		"character_name": "Jasper",
+		"class": "bard",
+		"level": "5"
+	},
+	{
+		"player_name": "Alyssa",
+		"character_name": "Tikaela",
+		"class": "fighter",
+		"level": "6"
+	},
+	{
+		"player_name": "Ian",
+		"character_name": "Griff",
+		"class": "rogue",
+		"level": "7"
+	},
+	{
+		"player_name": "Adrienne",
+		"character_name": "Riia",
+		"class": "warlock",
+		"level": "5"
+	},
+	{
+		"player_name": "Bobby",
+		"character_name": "Brutus",
+		"class": "barbarian",
+		"level": "4"
+	}
+]

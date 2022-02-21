@@ -1,0 +1,615 @@
+[
+	{
+		"slug": "elvish-veteran-archer",
+		"name": "Elvish Veteran Archer",
+		"size": "Medium",
+		"type": "Humanoid",
+		"subtype": "elf",
+		"group": null,
+		"alignment": "chaotic good or chaotic neutral",
+		"armor_class": 15,
+		"armor_desc": "studded leather",
+		"hit_points": 77,
+		"hit_dice": "14d8+14",
+		"speed": {
+			"walk": 30
+		},
+		"strength": 11,
+		"dexterity": 16,
+		"constitution": 12,
+		"intelligence": 11,
+		"wisdom": 13,
+		"charisma": 11,
+		"strength_save": null,
+		"dexterity_save": null,
+		"constitution_save": null,
+		"intelligence_save": null,
+		"wisdom_save": null,
+		"charisma_save": null,
+		"perception": 5,
+		"skills": {
+			"nature": 2,
+			"perception": 5,
+			"stealth": 5,
+			"survival": 3
+		},
+		"damage_vulnerabilities": "",
+		"damage_resistances": "",
+		"damage_immunities": "",
+		"condition_immunities": "",
+		"senses": "passive Perception $1",
+		"languages": "Common, Elvish",
+		"challenge_rating": "3",
+		"actions": [
+			{
+				"name": "Multiattack",
+				"desc": "The elvish veteran archer makes two melee attacks or three ranged attacks."
+			},
+			{
+				"name": "Shortsword",
+				"desc": "Melee Weapon Attack: +6 to hit, reach 5 ft, one target. Hit: 7 (1d6 + 4) piercing damage.",
+				"attack_bonus": 6,
+				"damage_dice": "1d6"
+			},
+			{
+				"name": "Longbow",
+				"desc": "Ranged Weapon Attack: +6 to hit, range 150/600 ft., one target. Hit: 8 (1d8 + 4) piercing damage.",
+				"attack_bonus": 6,
+				"damage_dice": "1d8"
+			},
+			{
+				"name": "Volley (Recharge 6)",
+				"desc": "The elvish archer makes one ranged attack against every enemy within 10 feet of a point it can see."
+			}
+		],
+		"reactions": "",
+		"legendary_desc": "",
+		"legendary_actions": "",
+		"special_abilities": [
+			{
+				"name": "Beast Hunter",
+				"desc": "The elvish veteran archer has advantage on Wisdom (Survival) checks to track beasts and on Intelligence (Nature) checks to recall information about beasts."
+			},
+			{
+				"name": "Fey Ancestry",
+				"desc": "The elvish veteran archer has advantage on saving throws against being charmed, and magic can't put the elvish archer to sleep."
+			},
+			{
+				"name": "Keen Hearing and Sight",
+				"desc": "The elvish veteran archer has advantage on Wisdom (Perception) checks that rely on hearing or sight."
+			},
+			{
+				"name": "Magic Weapons",
+				"desc": "The elvish veteran archer's weapon attacks are magical."
+			},
+			{
+				"name": "Stealthy Traveler",
+				"desc": "The elvish veteran archer can use Stealth while traveling at a normal pace."
+			},
+			{
+				"name": "Surprise Attack",
+				"desc": "If the elvish veteran archer surprises a creature and hits it with an attack during the first round of combat, the target takes an extra 7 (2d6) damage from the attack."
+			}
+		],
+		"spell_list": [],
+		"img_main": null,
+		"document__slug": "tob",
+		"document__title": "Tome of Beasts OGL"
+	},
+	{
+		"slug": "fang-of-the-great-wolf",
+		"name": "Fang of the Great Wolf",
+		"size": "Large",
+		"type": "monstrosity",
+		"subtype": "",
+		"group": null,
+		"alignment": "neutral evil",
+		"armor_class": 14,
+		"armor_desc": "natural armor",
+		"hit_points": 65,
+		"hit_dice": "10d10+10",
+		"speed": {
+			"walk": 50
+		},
+		"strength": 16,
+		"dexterity": 13,
+		"constitution": 13,
+		"intelligence": 9,
+		"wisdom": 13,
+		"charisma": 8,
+		"strength_save": null,
+		"dexterity_save": null,
+		"constitution_save": null,
+		"intelligence_save": null,
+		"wisdom_save": null,
+		"charisma_save": null,
+		"perception": 5,
+		"skills": {
+			"insight": 3,
+			"perception": 5,
+			"religion": 1
+		},
+		"damage_vulnerabilities": "",
+		"damage_resistances": "cold",
+		"damage_immunities": "",
+		"condition_immunities": "",
+		"senses": "darkvision 60 ft., passive Perception 15",
+		"languages": "Common, Goblin, Worg",
+		"challenge_rating": "3",
+		"actions": [
+			{
+				"attack_bonus": 5,
+				"damage_dice": "3d6+3",
+				"desc": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 13 (3d6 + 3) piercing damage. If the target is a Medium or smaller creature, it is grappled (escape DC 13) if the worg isn't already grapping a creature. Until this grapple ends, the target is restrained and the worg can't bite another target.",
+				"name": "Bite"
+			},
+			{
+				"desc": "The fang of the Great Wolf grows in size. This works like the enlarge/reduce spell, except the worg can only enlarge and it lasts for 1 minute. While enlarged, the fang of the Great Wolf gains the following action:\nSwallow. The worg makes one bite attack against a Medium or smaller target it is grappling. If the attack hits, the target is also swallowed, and the grapple ends. While swallowed, the target is blinded and restrained, it has total cover against attacks and other effects outside the worg, and it takes 10 (3d6) acid damage at the start of each of the worg's turns. The worg can have only one creature swallowed at a time. \n\nIf the worg takes 10 damage or more on a single turn from the swallowed creature, the worg must succeed on a DC 11 Constitution saving throw at the end of that turn or regurgitate the creature, which falls prone in a space within 5 feet of the worg. The creature is automatically regurgitated when the worg is no longer enlarged. If the worg dies, a swallowed creature is no longer restrained by it and can escape from the corpse by using 10 feet of movement, exiting prone.",
+				"name": "Might of the Great Wolf (Recharges after a Short or Long Rest)"
+			}
+		],
+		"reactions": "",
+		"legendary_desc": "",
+		"legendary_actions": "",
+		"special_abilities": [
+			{
+				"desc": "The worg has advantage on Wisdom (Perception) checks that rely on hearing or smell.",
+				"name": "Keen Hearing and Smell"
+			}
+		],
+		"spell_list": [],
+		"img_main": null,
+		"document__slug": "cc",
+		"document__title": "Creature Codex OGL"
+	},
+	{
+		"slug": "far-darrig",
+		"name": "Far Darrig",
+		"size": "Small",
+		"type": "fey",
+		"subtype": "",
+		"group": null,
+		"alignment": "neutral",
+		"armor_class": 14,
+		"armor_desc": "hide armor",
+		"hit_points": 104,
+		"hit_dice": "16d6+48",
+		"speed": {
+			"walk": 20
+		},
+		"strength": 15,
+		"dexterity": 16,
+		"constitution": 17,
+		"intelligence": 11,
+		"wisdom": 15,
+		"charisma": 17,
+		"strength_save": null,
+		"dexterity_save": 5,
+		"constitution_save": 7,
+		"intelligence_save": null,
+		"wisdom_save": null,
+		"charisma_save": 7,
+		"perception": 6,
+		"skills": {
+			"medicine": 6,
+			"nature": 4,
+			"perception": 6,
+			"survival": 6
+		},
+		"damage_vulnerabilities": "",
+		"damage_resistances": "",
+		"damage_immunities": "",
+		"condition_immunities": "",
+		"senses": "darkvision 60 ft., passive Perception 16",
+		"languages": "Common, Elvish, Sylvan",
+		"challenge_rating": "3",
+		"actions": [
+			{
+				"name": "Multiattack",
+				"desc": "The far darrig makes four antler glaive attacks."
+			},
+			{
+				"name": "Antler Glaive",
+				"desc": "Melee Weapon Attack: +4 to hit, reach 5 ft. or 10 ft., one target. Hit: 7 (1d10 + 2) slashing damage and the target must make a successful DC 13 Strength saving throw or either be disarmed or fall prone; the attacking far darrig chooses which effect occurs.",
+				"attack_bonus": 4,
+				"damage_dice": "1d10"
+			},
+			{
+				"name": "Enchanted Glaive Maneuvers",
+				"desc": "A far darrig can magically extend or shrink its antler glaive as a bonus action to give it either a 10-foot or 5-foot reach."
+			}
+		],
+		"reactions": "",
+		"legendary_desc": "",
+		"legendary_actions": "",
+		"special_abilities": [
+			{
+				"name": "Innate Spellcasting",
+				"desc": "the far darrig's innate spellcasting ability is Charisma (spell save DC 13, +5 to hit with spell attacks). It can innately cast the following spells, requiring no material components:\n\nconstant: magic weapon (antler glaive only), speak with animals\n\nat will: calm emotions, charm animal (as charm person but affects beasts only), cure wounds, detect poison and disease, water breathing, water walk\n\n3/day each: barkskin, conjure woodland beings, hold animal (as hold person but affects beasts only), jump, longstrider\n\n1/day each: commune with nature, freedom of movement, nondetection, tree stride"
+			}
+		],
+		"spell_list": [],
+		"img_main": null,
+		"document__slug": "tob",
+		"document__title": "Tome of Beasts OGL"
+	},
+	{
+		"slug": "far-wanderer",
+		"name": "Far Wanderer",
+		"size": "Medium",
+		"type": "aberration",
+		"subtype": "",
+		"group": null,
+		"alignment": "neutral",
+		"armor_class": 14,
+		"armor_desc": null,
+		"hit_points": 88,
+		"hit_dice": "16d8+16",
+		"speed": {
+			"walk": 30
+		},
+		"strength": 14,
+		"dexterity": 18,
+		"constitution": 12,
+		"intelligence": 17,
+		"wisdom": 11,
+		"charisma": 10,
+		"strength_save": null,
+		"dexterity_save": 6,
+		"constitution_save": null,
+		"intelligence_save": null,
+		"wisdom_save": null,
+		"charisma_save": null,
+		"perception": 2,
+		"skills": {
+			"arcana": 5,
+			"perception": 2,
+			"stealth": 6
+		},
+		"damage_vulnerabilities": "",
+		"damage_resistances": "cold",
+		"damage_immunities": "",
+		"condition_immunities": "exhaustion, poisoned",
+		"senses": "darkvision 120 ft., passive Perception 12",
+		"languages": "Common, Elvish, Sylvan",
+		"challenge_rating": "3",
+		"actions": [
+			{
+				"attack_bonus": 4,
+				"damage_dice": "2d8+2",
+				"desc": "Melee Weapon Attack: +4 to hit, reach 5ft., one target. Hit: 11 (2d8 + 2) slashing damage and 2 (1d4) cold damage.",
+				"name": "Stardust Blade"
+			},
+			{
+				"attack_bonus": 6,
+				"damage_dice": "2d8+4",
+				"desc": "Ranged Weapon Attack: +6 to hit, range 150/600 ft., one target. Hit: 13 (2d8 + 4) piercing damage and 2 (1d4) cold damage.",
+				"name": "Stardust bow"
+			},
+			{
+				"desc": "The far wanderer channels the energy of the living god-star Yorama. One creature the far wanderer can see within 60 feet must make a DC 13 Wisdom saving throw, taking 7 (2d6) psychic damage on a failed save, or half as much damage on a successful one. A creature who fails the saving throw is stunned until the end of its turn. Alternately, the far wanderer can instead restore 14 (4d6) hp to one willing creature it can see within 60 feet.",
+				"name": "Call to Yorama (1/Day)"
+			}
+		],
+		"reactions": "",
+		"legendary_desc": "",
+		"legendary_actions": "",
+		"special_abilities": [
+			{
+				"desc": "The far wanderer understands the literal meaning of any spoken or written language it hears or reads. In addition, it can use an action to read the surface thoughts of one creature within 30 feet. This works like the detect thoughts spell, except it can only read surface thoughts and there is no limit to the duration. It can end this effect as a bonus action or by using an action to change the target.",
+				"name": "Trader"
+			},
+			{
+				"desc": "As a bonus action, the far wanderer folds the fabric of reality to teleport itself to an unoccupied space it can see within 30 feet. A brief shimmer of starlight appears at the origin and destination.",
+				"name": "Traveler"
+			}
+		],
+		"spell_list": [],
+		"img_main": null,
+		"document__slug": "cc",
+		"document__title": "Creature Codex OGL"
+	},
+	{
+		"slug": "flame-dragon-wyrmling",
+		"name": "Flame Dragon Wyrmling",
+		"size": "Medium",
+		"type": "dragon",
+		"subtype": "",
+		"group": null,
+		"alignment": "chaotic evil",
+		"armor_class": 17,
+		"armor_desc": "natural armor",
+		"hit_points": 52,
+		"hit_dice": "8d8+16",
+		"speed": {
+			"walk": 30,
+			"climb": 30,
+			"fly": 60
+		},
+		"strength": 12,
+		"dexterity": 14,
+		"constitution": 15,
+		"intelligence": 13,
+		"wisdom": 12,
+		"charisma": 16,
+		"strength_save": null,
+		"dexterity_save": 4,
+		"constitution_save": 4,
+		"intelligence_save": null,
+		"wisdom_save": 3,
+		"charisma_save": 5,
+		"perception": 5,
+		"skills": {
+			"deception": 5,
+			"insight": 3,
+			"perception": 5,
+			"persuasion": 5,
+			"stealth": 4
+		},
+		"damage_vulnerabilities": "",
+		"damage_resistances": "",
+		"damage_immunities": "fire",
+		"condition_immunities": "",
+		"senses": "passive Perception $1",
+		"languages": "Common, Draconic, Ignan",
+		"challenge_rating": "3",
+		"actions": [
+			{
+				"name": "Bite",
+				"desc": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 6 (1d10 + 1) piercing damage plus 3 (1d6) fire damage.",
+				"attack_bonus": 3,
+				"damage_dice": "1d10+1"
+			},
+			{
+				"name": "Fire Breath (Recharge 5-6)",
+				"desc": "The dragon exhales fire in a 10-foot cone. Each creature in that area takes 24 (7d6) fire damage, or half damage with a successful DC 12 Dexterity saving throw."
+			}
+		],
+		"reactions": "",
+		"legendary_desc": "",
+		"legendary_actions": "",
+		"special_abilities": "",
+		"spell_list": [],
+		"img_main": null,
+		"document__slug": "tob",
+		"document__title": "Tome of Beasts OGL"
+	},
+	{
+		"slug": "ghast-of-leng",
+		"name": "Ghast of Leng",
+		"size": "Large",
+		"type": "aberration",
+		"subtype": "",
+		"group": null,
+		"alignment": "neutral evil",
+		"armor_class": 14,
+		"armor_desc": "natural armor",
+		"hit_points": 127,
+		"hit_dice": "17d10+34",
+		"speed": {
+			"walk": 40
+		},
+		"strength": 15,
+		"dexterity": 17,
+		"constitution": 14,
+		"intelligence": 4,
+		"wisdom": 9,
+		"charisma": 6,
+		"strength_save": null,
+		"dexterity_save": null,
+		"constitution_save": 4,
+		"intelligence_save": null,
+		"wisdom_save": 1,
+		"charisma_save": null,
+		"perception": 1,
+		"skills": {
+			"perception": 1
+		},
+		"damage_vulnerabilities": "radiant",
+		"damage_resistances": "cold",
+		"damage_immunities": "",
+		"condition_immunities": "",
+		"senses": "darkvision 120 ft., passive Perception 11",
+		"languages": "Void Speech",
+		"challenge_rating": "3",
+		"actions": [
+			{
+				"attack_bonus": 5,
+				"damage_dice": "1d8+3",
+				"desc": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8 + 3) piercing damage.",
+				"name": "Bite"
+			},
+			{
+				"attack_bonus": 5,
+				"damage_dice": "2d6+3",
+				"desc": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage.",
+				"name": "Claws"
+			}
+		],
+		"reactions": "",
+		"legendary_desc": "",
+		"legendary_actions": "",
+		"special_abilities": [
+			{
+				"desc": "The ghast of Leng has advantage on melee attack rolls against any creature that doesn't have all its hp.",
+				"name": "Blood Frenzy"
+			},
+			{
+				"desc": "The ghast of Leng has advantage on Wisdom (Perception) checks that rely on smell.",
+				"name": "Keen Smell"
+			},
+			{
+				"desc": "The ghast of Leng takes 20 radiant damage when it starts its turn in sunlight. While in sunlight, it has disadvantage on attack rolls and ability checks.",
+				"name": "Sunlight Hypersensitivity"
+			}
+		],
+		"spell_list": [],
+		"img_main": null,
+		"document__slug": "cc",
+		"document__title": "Creature Codex OGL"
+	},
+	{
+		"slug": "ghost-boar",
+		"name": "Ghost Boar",
+		"size": "Large",
+		"type": "monstrosity",
+		"subtype": "",
+		"group": null,
+		"alignment": "unaligned",
+		"armor_class": 13,
+		"armor_desc": "natural armor",
+		"hit_points": 68,
+		"hit_dice": "8d10+24",
+		"speed": {
+			"walk": 40
+		},
+		"strength": 18,
+		"dexterity": 10,
+		"constitution": 16,
+		"intelligence": 7,
+		"wisdom": 12,
+		"charisma": 7,
+		"strength_save": null,
+		"dexterity_save": null,
+		"constitution_save": null,
+		"intelligence_save": null,
+		"wisdom_save": null,
+		"charisma_save": null,
+		"perception": null,
+		"skills": {},
+		"damage_vulnerabilities": "",
+		"damage_resistances": "",
+		"damage_immunities": "",
+		"condition_immunities": "",
+		"senses": "darkvision 60 ft., passive Perception 11",
+		"languages": "understands Common but can't speak it",
+		"challenge_rating": "3",
+		"actions": [
+			{
+				"attack_bonus": 6,
+				"damage_dice": "2d6+4",
+				"desc": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) slashing damage.",
+				"name": "Tusk"
+			}
+		],
+		"reactions": [
+			{
+				"desc": "When a creature hits the ghost boar with a melee weapon attack, the ghost boar can make one tusk attack against the creature. The ghost boar must see the attacker and be within 5 feet of it.",
+				"name": "Tusk Swipe"
+			}
+		],
+		"legendary_desc": "",
+		"legendary_actions": "",
+		"special_abilities": [
+			{
+				"desc": "If the boar moves at least 20 feet straight toward a target and then hits it with a tusk attack on the same turn, the target takes an extra 10 (3d6) slashing damage. If the target is a creature, it must succeed on a DC 14 Strength saving throw or be knocked prone.",
+				"name": "Charge"
+			},
+			{
+				"desc": "When the ghost boar moves, it becomes temporarily incorporeal. It can move through creatures and objects as if they were difficult terrain. It takes 5 (1d10) force damage and is pushed to the closest unoccupied space if it ends its turn inside an object.",
+				"name": "Incorporeal Jaunt"
+			},
+			{
+				"desc": "If the boar takes 15 damage or less that would reduce it to 0 hp, it is reduced to 1 hp instead.",
+				"name": "Relentless (Recharges after a Short or Long Rest)"
+			}
+		],
+		"spell_list": [],
+		"img_main": null,
+		"document__slug": "cc",
+		"document__title": "Creature Codex OGL"
+	},
+	{
+		"slug": "ghoul-darakhul",
+		"name": "Ghoul, Darakhul",
+		"size": "Medium",
+		"type": "undead",
+		"subtype": "",
+		"group": null,
+		"alignment": "neutral evil",
+		"armor_class": 16,
+		"armor_desc": "scale mail; 18 with shield",
+		"hit_points": 78,
+		"hit_dice": "12d8+24",
+		"speed": {
+			"walk": 30
+		},
+		"strength": 16,
+		"dexterity": 17,
+		"constitution": 14,
+		"intelligence": 14,
+		"wisdom": 12,
+		"charisma": 12,
+		"strength_save": null,
+		"dexterity_save": null,
+		"constitution_save": null,
+		"intelligence_save": null,
+		"wisdom_save": null,
+		"charisma_save": null,
+		"perception": null,
+		"skills": {
+			"deception": 3,
+			"stealth": 5
+		},
+		"damage_vulnerabilities": "",
+		"damage_resistances": "necrotic",
+		"damage_immunities": "poison",
+		"condition_immunities": "charmed, exhaustion, poisoned",
+		"senses": "darkvision 60 ft., passive Perception 11",
+		"languages": "Common, Darakhul",
+		"challenge_rating": "3",
+		"actions": [
+			{
+				"name": "Multiattack",
+				"desc": "The darakhul bites once, claws once, and makes one war pick attack. Using a shield limits the darakhul to making either its claw or war pick attack, but not both."
+			},
+			{
+				"name": "Bite",
+				"desc": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 12 (2d8 + 3) piercing damage, and if the target creature is humanoid it must succeed on a DC 11 Constitution saving throw or contract darakhul fever.",
+				"attack_bonus": 5,
+				"damage_dice": "2d8"
+			},
+			{
+				"name": "Claw",
+				"desc": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage. If the target is a creature other than an undead, it must make a successful DC 12 Constitution saving throw or be paralyzed for 1 minute. A paralyzed target repeats the saving throw at the end of each of its turns, ending the effect on itself on a success. If a humanoid creature is paralyzed for 2 or more rounds (the victim fails at least 2 saving throws), consecutive or nonconsecutive, the creature contracts darakhul fever.",
+				"attack_bonus": 5,
+				"damage_dice": "2d6"
+			},
+			{
+				"name": "War Pick",
+				"desc": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8 + 3) piercing damage.",
+				"attack_bonus": 5,
+				"damage_dice": "1d8"
+			}
+		],
+		"reactions": "",
+		"legendary_desc": "",
+		"legendary_actions": "",
+		"special_abilities": [
+			{
+				"name": "Master of Disguise",
+				"desc": "A darakhul in a prepared disguise has advantage on Charisma (Deception) checks made to pass as a living creature. While using this ability, the darakhul loses its stench."
+			},
+			{
+				"name": "Stench",
+				"desc": "Any creature that starts its turn within 5 feet of the darakhul must make a successful DC 12 Constitution saving throw or be poisoned until the start of its next turn. A successful saving throw makes the creature immune to the darakhul's stench for 24 hours. A darakhul using this ability can't also benefit from Master of Disguise."
+			},
+			{
+				"name": "Sunlight Sensitivity",
+				"desc": "The darakhul has disadvantage on Wisdom (Perception) checks that rely on sight and on attack rolls while it, the object it is trying to see or attack in direct sunlight."
+			},
+			{
+				"name": "Turning Defiance",
+				"desc": "The darakhul and any ghouls within 30 feet of it have advantage on saving throws against effects that turn undead."
+			},
+			{
+				"name": "Darakhul Fever",
+				"desc": "spread mainly through bite wounds, this rare disease makes itself known within 24 hours by swiftly debilitating the infected. A creature so afflicted must make a DC 17 Constitution saving throw after every long rest. On a failed save the victim takes 14 (4d6) necrotic damage, and its hit point maximum is reduced by an amount equal to the damage taken. This reduction can't be removed until the victim recovers from darakhul fever, and even then only by greater restoration or similar magic. The victim recovers from the disease by making successful saving throws on two consecutive days. Greater restoration cures the disease; lesser restoration allows the victim to make the daily Constitution check with advantage. Primarily spread among humanoids, the disease can affect ogres, and therefore other giants may be susceptible. If the infected creature dies while infected with darakhul fever, roll 1d20, add the character's current Constitution modifier, and find the result on the Adjustment Table to determine what undead form the victim's body rises in. Adjustment Table Roll Result:\n\n1-9 None; victim is simply dead\n\n10-16 Ghoul\n\n17-20 Ghast\n\n21+ Darakhul"
+			}
+		],
+		"spell_list": [],
+		"img_main": null,
+		"document__slug": "tob",
+		"document__title": "Tome of Beasts OGL"
+	}
+]

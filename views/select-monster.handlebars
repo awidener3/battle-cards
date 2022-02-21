@@ -1,0 +1,44 @@
+{{!-- Top text --}}
+<div id="page-header" class="col-12 col-sm-6 mb-4 mx-auto">
+    <p id="page-text" class="col-12">Select your Monsters:</p>
+    <button id="add-btn" class="btn btn-primary">search monsters</button>
+</div>
+
+{{!-- Monster Container --}}
+<div id="monster-container" class="mt-4 container col-12 col-sm-6 mb-4 mx-auto">
+    <h3>Selected Monsters</h3>
+    {{#each monsters as |monster|}}
+
+    <div class="d-flex my-2" data-id="{{monster.id}}">
+        <div class="border d-flex col me-3 px-3 py-1 justify-content-between align-items-center">
+            <div>
+                <div class="d-flex">
+                    <h5 class="m-0 me-2">{{monster.name}}</h5>
+                </div>
+                <p class="m-0">{{monster.type}}</p>
+            </div>
+            <p class="m-0">CR {{monster.challenge_rating}}</p>
+        </div>
+        <button class="remove-monster-btn btn btn-danger btn-sm">remove</button>
+    </div>
+
+    {{/each}}
+</div>
+
+
+{{!-- Navigation --}}
+<div class="mt-auto">
+    <div class="container">
+        <div id="footer-navigation" class="col-sm-6 mx-auto pb-3">
+            <div id="difficulty-meter" class="alert alert-success mt-2">
+                <p id="difficulty-meter-text" class="text-center m-0">DIFFICULTY</p>
+            </div>
+            <div id="nav-btns" class="btn-group col-12">
+                <a href="/create-encounter/select-pc" id="back-btn" class="btn btn-secondary col-5 mx-1"><< back</a>
+                <a href="/create-encounter/select-monster" id="next-btn" class="btn btn-secondary col-5 mx-1"> next >></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="/js/selectMonster.js"></script>

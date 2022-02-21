@@ -1,6 +1,3 @@
-import { printPc, updateStoredPc } from './selectPc.js';
-import { printMonsters, searchMonster } from './selectMonster.js';
-
 const headerTitle = document.querySelector('#header-title');
 const pageText = document.querySelector('#page-text');
 const searchAddBtn = document.querySelector('#search-add-btn');
@@ -12,15 +9,6 @@ let pageIndex = 0;
 let storedPc;
 let storedMonster;
 let stagedPc = [];
-
-// Grabs fetched monsters stored in local storage
-export const updateStoredMonster = () => {
-	storedMonster !== null
-		? (storedMonster = JSON.parse(localStorage.getItem('savedMonster')))
-		: (storedMonster = []);
-
-	return storedMonster;
-};
 
 // Renders the content based on page index
 export const renderContent = () => {
@@ -42,7 +30,7 @@ export const renderContent = () => {
 		case 1:
 			pageText.textContent = 'Select your Monsters:';
 			searchAddBtn.textContent = 'search monsters';
-			searchAddBtn.addEventListener('click', searchMonster);
+			// searchAddBtn.addEventListener('click', searchMonster);
 
 			// Clear content
 			contentContainer.textContent = '';
@@ -91,28 +79,10 @@ const printSummary = () => {
 	pcHeader.textContent = "PC's:";
 	pcDiv.append(pcHeader);
 
-	// let pcUl = document.createElement('ul');
-	// storedPc.forEach((pc) => {
-	// 	let li = document.createElement('li');
-	// 	li.textContent = `${pc.pcName} (${pc.pcClass}) -- Lvl. ${pc.pcLevel}`;
-
-	// 	pcUl.append(li);
-	// });
-	// pcDiv.append(pcUl);
-
 	let monDiv = document.createElement('div');
 	let monHeader = document.createElement('h4');
 	monHeader.textContent = 'Monsters:';
 	monDiv.append(monHeader);
-
-	// let monUl = document.createElement('ul');
-	// storedMonster.forEach((mon) => {
-	// 	let li = document.createElement('li');
-	// 	li.textContent = `${mon.name}`;
-
-	// 	monUl.append(li);
-	// });
-	// monDiv.append(monUl);
 
 	summaryContent.append(pcDiv, monDiv);
 	mainEl.append(summaryContent);
