@@ -29,5 +29,5 @@ addBtn.addEventListener('click', function () {
 });
 
 cancelBtn.addEventListener('click', function () {
-	document.write(document.referrer);
+	location.pathname = '/html/create-encounter.html';
 });
