@@ -1,4 +1,4 @@
-import { printPc, createNewPc } from './selectPc.js';
+import { printPc, createNewPc, updateStoredPc } from './selectPc.js';
 import { printMonsters, searchMonster } from './selectMonster.js';
 
 const headerTitle = document.querySelector('#header-title')
@@ -12,15 +12,6 @@ let storedPc;
 let storedMonster;
 let stagedPc = [];
 
-// Grabs created characters stored in local storage
-export const updateStoredPc = () => {
-	storedPc !== null
-		? (storedPc = JSON.parse(localStorage.getItem('playerCharacter')))
-		: (storedPc = []);
-
-	return storedPc;
-};
-
 // Grabs fetched monsters stored in local storage
 export const updateStoredMonster = () => {
 	storedMonster !== null
@@ -32,12 +23,14 @@ export const updateStoredMonster = () => {
 
 // Renders the content based on page index
 export const renderContent = () => {
+	updateStoredPc();
+
 	switch (pageIndex) {
 		case 0:
 			pageText.textContent = "Select your PC's:";
 			searchAddBtn.textContent = 'add new PC';
 			searchAddBtn.addEventListener('click', createNewPc);
-			// printPc();
+			printPc();
 
 			break;
 
@@ -165,3 +158,5 @@ const printSummary = () => {
 
 	footerNav.append(saveBtn, runBtn, difficultyMeter, prevBtn, clearBtn);
 };
+
+renderContent();
