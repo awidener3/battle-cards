@@ -1,6 +1,12 @@
 import { printPc, createNewPc } from './selectPc.js';
 import { printMonsters, searchMonster } from './selectMonster.js';
 
+const headerTitle = document.querySelector('#header-title')
+const pageText = document.querySelector('#page-text');
+const searchAddBtn = document.querySelector('#search-add-btn');
+const nextBtn = document.querySelector('#next-btn');
+const backBtn = document.querySelector('#back-btn');
+
 let pageIndex = 0;
 let storedPc;
 let storedMonster;
@@ -24,96 +30,50 @@ export const updateStoredMonster = () => {
 	return storedMonster;
 };
 
-// Renders the create encounter section of the application
-export const createEncounter = () => {
-	// Tracks index to render summary page
-	if (pageIndex > 1) {
-		printSummary();
-		return;
-	}
-
-	// let contentDiv = document.createElement('div');
-	// contentDiv.classList.add('container', 'col-sm-6');
-	// let text = document.createElement('p');
-	// text.classList.add('col-12');
-	// let addBtn = document.createElement('button');
-	// addBtn.classList.add('btn', 'btn-primary', 'btn-lg', 'col-12');
-	// contentDiv.append(text, addBtn);
-	// mainEl.appendChild(contentDiv);
-	// let selectionDiv = document.createElement('div');
-	// selectionDiv.classList.add('container', 'mt-4');
-	// selectionDiv.setAttribute('id', 'selection-div');
-	// mainEl.appendChild(selectionDiv);
-
-	updateStoredPc();
-	updateStoredMonster();
-
-	// Tracks page index to display pc and monster creation/selection
+// Renders the content based on page index
+export const renderContent = () => {
 	switch (pageIndex) {
-		case 0: // * pc's
-			text.textContent = "Select your PC's:";
-			addBtn.textContent = '+ add new PC';
-			addBtn.addEventListener('click', createNewPc);
-
-			printPc();
-
-			break;
-
-		case 1: // * monsters
-			text.textContent = 'Select your Monsters:';
-			addBtn.textContent = '🔍 search for a monster';
-			addBtn.addEventListener('click', searchMonster);
-
-			printMonsters();
+		case 0:
+			pageText.textContent = "Select your PC's:";
+			searchAddBtn.textContent = 'add new PC';
+			searchAddBtn.addEventListener('click', createNewPc);
+			// printPc();
 
 			break;
 
+		case 1:
+			pageText.textContent = 'Select your Monsters:';
+			searchAddBtn.textContent = 'search monsters';
+			searchAddBtn.addEventListener('click', searchMonster);
+			// printMonsters();
+
+			break;
+		case 2:
+			printSummary();
+
+			break;
 		default:
 			console.log('error');
 	}
-
-	// navigation buttons
-	footerNav.textContent = '';
-
-	let buttonDiv = document.createElement('div');
-	buttonDiv.classList.add('btn-group', 'col-12');
-
-	// Previous page button
-	let prevBtn = document.createElement('button');
-	prevBtn.textContent = '<< prev';
-	prevBtn.classList.add('btn', 'btn-secondary', 'col-5', 'mx-1');
-	prevBtn.addEventListener('click', function () {
-		if (pageIndex === 0) {
-			location.reload();
-		} else {
-			pageIndex--;
-			createEncounter();
-		}
-	});
-
-	// next page
-	let nextBtn = document.createElement('button');
-	nextBtn.textContent = 'next >>';
-	nextBtn.classList.add('btn', 'btn-secondary', 'col-5', 'mx-1');
-	nextBtn.addEventListener('click', function () {
-		pageIndex++;
-		createEncounter();
-	});
-
-	let difficultyMeter = document.createElement('div');
-	let meterText = document.createElement('p');
-	meterText.textContent = 'DIFFICULTY';
-
-	// color will change with function that calculates difficulty
-	difficultyMeter.classList.add('alert', 'alert-success', 'mt-2');
-	meterText.classList.add('text-center', 'm-0');
-
-	difficultyMeter.append(meterText);
-	buttonDiv.append(prevBtn, nextBtn);
-	footerNav.append(difficultyMeter, buttonDiv);
 };
 
-// ! ####### SUMMARY #######
+// Back page button
+backBtn.addEventListener('click', function () {
+	if (pageIndex === 0) {
+		location.pathname = '/index.html';
+	} else {
+		pageIndex--;
+		renderContent();
+	}
+});
+
+// Next page button
+nextBtn.addEventListener('click', function () {
+	pageIndex++;
+	renderContent();
+});
+
+// Summary
 
 const printSummary = () => {
 	storedPc = updateStoredPc();
@@ -129,28 +89,28 @@ const printSummary = () => {
 	pcHeader.textContent = "PC's:";
 	pcDiv.append(pcHeader);
 
-	let pcUl = document.createElement('ul');
-	storedPc.forEach((pc) => {
-		let li = document.createElement('li');
-		li.textContent = `${pc.pcName} (${pc.pcClass}) -- Lvl. ${pc.pcLevel}`;
+	// let pcUl = document.createElement('ul');
+	// storedPc.forEach((pc) => {
+	// 	let li = document.createElement('li');
+	// 	li.textContent = `${pc.pcName} (${pc.pcClass}) -- Lvl. ${pc.pcLevel}`;
 
-		pcUl.append(li);
-	});
-	pcDiv.append(pcUl);
+	// 	pcUl.append(li);
+	// });
+	// pcDiv.append(pcUl);
 
 	let monDiv = document.createElement('div');
 	let monHeader = document.createElement('h4');
 	monHeader.textContent = 'Monsters:';
 	monDiv.append(monHeader);
 
-	let monUl = document.createElement('ul');
-	storedMonster.forEach((mon) => {
-		let li = document.createElement('li');
-		li.textContent = `${mon.name}`;
+	// let monUl = document.createElement('ul');
+	// storedMonster.forEach((mon) => {
+	// 	let li = document.createElement('li');
+	// 	li.textContent = `${mon.name}`;
 
-		monUl.append(li);
-	});
-	monDiv.append(monUl);
+	// 	monUl.append(li);
+	// });
+	// monDiv.append(monUl);
 
 	summaryContent.append(pcDiv, monDiv);
 	mainEl.append(summaryContent);
@@ -191,7 +151,7 @@ const printSummary = () => {
 			location.reload();
 		} else {
 			pageIndex--;
-			createEncounter();
+			renderContent();
 		}
 	});
 
@@ -200,7 +160,7 @@ const printSummary = () => {
 	clearBtn.classList.add('btn', 'btn-secondary', 'col-5');
 	clearBtn.addEventListener('click', function () {
 		pageIndex = 0;
-		createEncounter();
+		renderContent();
 	});
 
 	footerNav.append(saveBtn, runBtn, difficultyMeter, prevBtn, clearBtn);

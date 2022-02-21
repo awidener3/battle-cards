@@ -1,5 +1,5 @@
 import { Pc } from './classes/pc.js';
-import { createEncounter, updateStoredPc } from './createEncounter.js';
+import { renderContent, updateStoredPc } from './createEncounter.js';
 
 const mainEl = document.querySelector('main');
 const footerNav = document.querySelector('#footer-navigation');

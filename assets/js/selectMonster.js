@@ -1,5 +1,5 @@
 import { Monster } from './classes/monster.js';
-import { createEncounter, updateStoredMonster } from './createEncounter.js';
+import { renderContent, updateStoredMonster } from './createEncounter.js';
 
 const mainEl = document.querySelector('main');
 const footerNav = document.querySelector('#footer-navigation');
