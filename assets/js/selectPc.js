@@ -5,10 +5,8 @@ const mainEl = document.querySelector('main');
 const footerNav = document.querySelector('#footer-navigation');
 const headerTitle = document.querySelector('#header-title');
 
-let storedPc;
+let storedPc = [];
 let stagedArr = [];
-
-// ? ####### MAIN PAGE ########
 
 export const printPc = () => {
 	storedPc = updateStoredPc();
@@ -82,8 +80,7 @@ const createCharacterRow = (object, index) => {
 	selectionDiv.append(div);
 };
 
-// ? ####### CREATE PC ########
-
+// Creates pc
 export const createNewPc = () => {
 	mainEl.textContent = '';
 	footerNav.textContent = '';

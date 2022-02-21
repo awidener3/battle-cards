@@ -1,16 +1,12 @@
 import { printPc, createNewPc } from './selectPc.js';
 import { printMonsters, searchMonster } from './selectMonster.js';
 
-const headerTitle = document.querySelector('#header-title');
-const mainEl = document.querySelector('main');
-const footerNav = document.querySelector('#footer-navigation');
-
 let pageIndex = 0;
 let storedPc;
 let storedMonster;
 let stagedPc = [];
 
-// updateStoredPc grabs pcs stored in local storage
+// Grabs created characters stored in local storage
 export const updateStoredPc = () => {
 	storedPc !== null
 		? (storedPc = JSON.parse(localStorage.getItem('playerCharacter')))
@@ -19,6 +15,7 @@ export const updateStoredPc = () => {
 	return storedPc;
 };
 
+// Grabs fetched monsters stored in local storage
 export const updateStoredMonster = () => {
 	storedMonster !== null
 		? (storedMonster = JSON.parse(localStorage.getItem('savedMonster')))
@@ -27,36 +24,31 @@ export const updateStoredMonster = () => {
 	return storedMonster;
 };
 
-// renders the create encounter section of the application
+// Renders the create encounter section of the application
 export const createEncounter = () => {
-	mainEl.textContent = '';
-
-	// pushes to summary page before adding any elements below
+	// Tracks index to render summary page
 	if (pageIndex > 1) {
 		printSummary();
 		return;
 	}
 
-	headerTitle.textContent = 'CREATE NEW ENCOUNTER';
-	let contentDiv = document.createElement('div');
-	let text = document.createElement('p');
-	text.classList.add('col-12');
-	let addBtn = document.createElement('button');
-	addBtn.classList.add('btn', 'btn-primary', 'btn-lg', 'col-12');
-
-	contentDiv.append(text, addBtn);
-	mainEl.appendChild(contentDiv);
-
-	let selectionDiv = document.createElement('div');
-	selectionDiv.classList.add('container', 'mt-4');
-	selectionDiv.setAttribute('id', 'selection-div');
-
-	mainEl.appendChild(selectionDiv);
+	// let contentDiv = document.createElement('div');
+	// contentDiv.classList.add('container', 'col-sm-6');
+	// let text = document.createElement('p');
+	// text.classList.add('col-12');
+	// let addBtn = document.createElement('button');
+	// addBtn.classList.add('btn', 'btn-primary', 'btn-lg', 'col-12');
+	// contentDiv.append(text, addBtn);
+	// mainEl.appendChild(contentDiv);
+	// let selectionDiv = document.createElement('div');
+	// selectionDiv.classList.add('container', 'mt-4');
+	// selectionDiv.setAttribute('id', 'selection-div');
+	// mainEl.appendChild(selectionDiv);
 
 	updateStoredPc();
 	updateStoredMonster();
 
-	// uses current pageIndex to dynamically change what is displayed
+	// Tracks page index to display pc and monster creation/selection
 	switch (pageIndex) {
 		case 0: // * pc's
 			text.textContent = "Select your PC's:";
@@ -83,10 +75,13 @@ export const createEncounter = () => {
 	// navigation buttons
 	footerNav.textContent = '';
 
-	// previous page
+	let buttonDiv = document.createElement('div');
+	buttonDiv.classList.add('btn-group', 'col-12');
+
+	// Previous page button
 	let prevBtn = document.createElement('button');
 	prevBtn.textContent = '<< prev';
-	prevBtn.classList.add('btn', 'btn-secondary', 'col-5');
+	prevBtn.classList.add('btn', 'btn-secondary', 'col-5', 'mx-1');
 	prevBtn.addEventListener('click', function () {
 		if (pageIndex === 0) {
 			location.reload();
@@ -99,13 +94,11 @@ export const createEncounter = () => {
 	// next page
 	let nextBtn = document.createElement('button');
 	nextBtn.textContent = 'next >>';
-	nextBtn.classList.add('btn', 'btn-secondary', 'col-5');
+	nextBtn.classList.add('btn', 'btn-secondary', 'col-5', 'mx-1');
 	nextBtn.addEventListener('click', function () {
 		pageIndex++;
 		createEncounter();
 	});
-
-	footerNav.append(prevBtn, nextBtn);
 
 	let difficultyMeter = document.createElement('div');
 	let meterText = document.createElement('p');
@@ -116,8 +109,8 @@ export const createEncounter = () => {
 	meterText.classList.add('text-center', 'm-0');
 
 	difficultyMeter.append(meterText);
-	footerNav.append(difficultyMeter);
-	footerNav.append(prevBtn, nextBtn);
+	buttonDiv.append(prevBtn, nextBtn);
+	footerNav.append(difficultyMeter, buttonDiv);
 };
 
 // ! ####### SUMMARY #######
